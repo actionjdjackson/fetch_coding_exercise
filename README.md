@@ -44,7 +44,7 @@ Before using this script, ensure you have the following:
     ```zsh
     python3 find_fake_bar_test.py
     ```
-5. If you're cofigured to ask for a browser, enter the browser letter identifier in the prompt.
+5. If you're configured to ask for a browser, enter the browser's first letter in the prompt.
    If you want the dialog box for winning the game to go away sooner, change the WAIT_TIME variable in the configuration file. Clicking "OK" on the dialog will cause an error. If you are in loop mode, use Ctrl-C to exit the program.
 
 ## How it Works

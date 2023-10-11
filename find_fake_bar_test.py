@@ -72,22 +72,22 @@ class FindTheFakeBarAutomator:
                 while True:
                     input_string = input(f"What browser would you like to use? [S]afari, [F]irefox, [C]hrome, [E]dge, [I]nternet Exploder: ")
                     if input_string.upper() == "S":
-                        algorithm.driver = webdriver.Safari()
                         self.log_success("Okay, Safari it is. Please make sure you go to the Develop menu, and enable 'Allow Remote Automation'")
+                        algorithm.driver = webdriver.Safari()
                         break
                     elif input_string.upper() == "F":
-                        algorithm.driver = webdriver.Firefox()
                         self.log_success("Okay, Firefox it is. ")
+                        algorithm.driver = webdriver.Firefox()
                         break
                     elif input_string.upper() == "C":
+                        self.log_success("Okay, Chrome it is. ")
                         chrome_options = webdriver.ChromeOptions()
                         chrome_options.add_experimental_option("excludeSwitches", ['enable-automation'])
                         algorithm.driver = webdriver.Chrome(options=chrome_options)
-                        self.log_success("Okay, Chrome it is. ")
                         break
                     elif input_string.upper() == "E":
-                        algorithm.driver = webdriver.Edge()
                         self.log_success("Okay, Edge it is. ")
+                        algorithm.driver = webdriver.Edge()
                         break
                     elif input_string.upper() == "I":
                         self.log_success("Okay, Internet Explorer it is. ")
@@ -137,6 +137,7 @@ class FindTheFakeBarAutomator:
             if self.LOOP.upper() == "Y":
                 while True:
                     algorithm.find_fake_bar()
+                    self.log_success("Restarting the game.")
             elif self.LOOP.upper() == "N":
                 algorithm.find_fake_bar()
 
@@ -145,7 +146,7 @@ class FindTheFakeBarAutomator:
         except Exception as e:
             self.log_error(f"An unexpected error occurred: {e}\n")
         except KeyboardInterrupt as kb:
-            self.log_success(f"Exiting program gracefully, goodbye!")
+            self.log_success(f"\nExiting program gracefully, goodbye!")
             exit()
         finally:
             if self.LOOP.upper() == "N":
