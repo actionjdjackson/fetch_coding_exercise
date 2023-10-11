@@ -23,14 +23,16 @@ Before using this script, ensure you have the following:
     "DEFAULT_BROWSER": "Ask",
     "RANDOM_GUESS": "Y",
     "WAIT_TIME": 10,
-    "PAUSE_TIME": 2
+    "PAUSE_TIME": 2,
+    "LOOP": "N"
   }
   ```
   - `URL`: The URL of the game website
   - `DEFAULT_BROWSER`: Ask, Chrome, Firefox, Edge, Safari, Internet Explorer
-  - `RANDOM_GUESS`: true or false
+  - `RANDOM_GUESS`: Y or N for randomly guessing which is the lightest bar
   - `WAIT_TIME`: # of seconds to wait after finding the fake bar, before exiting
   - `PAUSE_TIME`: # of seconds to pause inbetween weighings
+  - `LOOP`: Y or N for looping the main method
 
 3. If you are running Safari, please make sure you go to the Develop menu, and enable 'Allow Remote Automation'
 
