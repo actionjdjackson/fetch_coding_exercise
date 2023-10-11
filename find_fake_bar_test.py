@@ -2,7 +2,34 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 
-driver = webdriver.Safari()
+def main():
+
+    while True:
+        input_string = input(f"What browser would you like to use? [S]afari, [F]irefox, [C]hrome, [E]dge, [I]nternet Exploder: ")
+
+        if input_string.upper() == "S":
+            driver = webdriver.Safari()
+            print("Okay, Safari it is. Please make sure you go to the Develop menu, and enable 'Allow Remote Automation'")
+            break
+        elif input_string.upper() == "F":
+            driver = webdriver.Firefox()
+            print("Okay, Firefox it is. ")
+            break
+        elif input_string.upper() == "C":
+            driver = webdriver.Chrome()
+            print("Okay, Chrome it is. ")
+            break
+        elif input_string.upper() == "E":
+            driver = webdriver.Edge()
+            print("Okay, Edge it is. ")
+            break
+        elif input_string.upper() == "I":
+            print("Okay, Internet Explorer it is. ")
+            driver = webdriver.IE()
+            break
+        else:
+            print(f"Ooops, I didn't understand that response.")
+            continue
 
 driver.get("http://sdetchallenge.fetch.com/")
 
