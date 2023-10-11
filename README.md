@@ -44,10 +44,13 @@ Before using this script, ensure you have the following:
     ```zsh
     python3 find_fake_bar_test.py
     ```
+5. If you're cofigured to ask for a browser, enter the browser letter identifier in the prompt.
+   If you want the dialog box for winning the game to go away sooner, change the WAIT_TIME variable in the configuration file. Clicking "OK" on the dialog will cause an error. If you are in loop mode, use Ctrl-C to exit the program.
+
 ## How it Works
 
 1. Split the bars in half, one half on each side of the scale, leaving out
-    either the last bar or a random guess (Like Who Wants to Be a Millionaire).
+    either the last bar or a random guess (Like Deal or No Deal).
 2. If the odd-man-out is the fake bar (i.e. the two halves are equal in weight),
     then click that bar's number.
 3. If one side is less than the other, take out pairs of bars until the two

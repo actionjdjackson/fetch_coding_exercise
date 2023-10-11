@@ -1,8 +1,8 @@
 {
   "URL": "http://sdetchallenge.fetch.com/",
-  "DEFAULT_BROWSER": "Firefox",
+  "DEFAULT_BROWSER": "Ask",
   "RANDOM_GUESS": "N",
-  "WAIT_TIME": 5,
+  "WAIT_TIME": 3,
   "PAUSE_TIME": 2,
   "LOOP": "Y"
 }
