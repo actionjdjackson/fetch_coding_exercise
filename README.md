@@ -17,7 +17,7 @@ Before using this script, ensure you have the following:
     2. Run `sudo apt-get install python3.6`
 
     ***On Fedora, RHEL, and CentOS, run:***
-    1. `sudo dnf install python3`
+    1. Run `sudo dnf install python3`
 
     ***On Windows***
     1. Go to <https://www.python.org> and download the Windows installer.
@@ -54,7 +54,7 @@ Before using this script, ensure you have the following:
   - `DEFAULT_BROWSER`: Ask, Chrome, Firefox, Edge, Safari, or Internet Explorer
   - `RANDOM_GUESS`: Y or N for randomly guessing which is the lightest bar
   - `WAIT_TIME`: # of seconds to wait after finding the fake bar, before exiting or looping
-  - `PAUSE_TIME`: # of seconds to pause inbetween weighings, to allow the interface to "Catch up"
+  - `PAUSE_TIME`: # of seconds to pause inbetween weighings, to allow the interface to "catch up"
   - `LOOP`: Y or N for looping the algorithm on a fresh load of the page
 
 3. If you are running Safari, please make sure you go to the Develop menu, and enable 'Allow Remote Automation'
