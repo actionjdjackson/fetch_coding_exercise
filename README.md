@@ -67,7 +67,7 @@ Before using this script, ensure you have the following:
     python3 find_fake_bar_test.py
     ```
 5. If you're configured to ask for a browser, enter the browser's first letter in the prompt.
-   If you want the dialog box for winning the game to go away sooner, change the WAIT_TIME variable in the configuration file. Clicking "OK" on the dialog will cause an error. If you are in loop mode, use Ctrl-C to exit the program.
+   If you want the dialog box for winning the game to go away sooner, change the WAIT_TIME variable in the configuration file. Clicking "OK" on the dialog will cause an error in Firefox and Chrome, and possibly also Edge and IE. Safari asks you wether you want to continue the session or stop it - make sure you click continue, or a similar error will occur in Safari, too. The error causes the program to exit gracefully. So, it's best to just wait for the program to "click" the "OK" button itself and start on the next loop, if you're looping. If you are in loop mode, use Ctrl-C to exit the program, and it will exit gracefully.
 
 ---
 

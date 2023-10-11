@@ -1,1 +1,76 @@
 
+2023-10-11 16:20:47,308 - INFO: Asking for browser in the terminal...
+2023-10-11 16:20:51,606 - INFO: Okay, Firefox it is. 
+2023-10-11 16:20:56,289 - INFO: Currently running without random guess...
+2023-10-11 16:20:56,289 - INFO: Running on a loop...
+2023-10-11 16:20:56,289 - INFO: Setting up the algorithm.. loading the URL...
+2023-10-11 16:20:57,245 - INFO: URL Loaded successfully
+2023-10-11 16:20:57,287 - INFO: Loaded bowls into algorithm
+2023-10-11 16:20:57,303 - INFO: Loaded bar selection buttons into algorithm
+2023-10-11 16:20:57,306 - INFO: Loaded weigh & reset buttons into algorithm
+2023-10-11 16:20:57,307 - INFO: Beginning algorithm...
+2023-10-11 16:20:57,307 - INFO: Divvying up the bars equally...
+2023-10-11 16:20:59,840 - INFO: Weighing...
+2023-10-11 16:21:01,880 - INFO: The fake bar is between 0 and 3
+2023-10-11 16:21:04,339 - INFO: Weighing...
+2023-10-11 16:21:06,360 - INFO: The fake bar is between 0 and 2
+2023-10-11 16:21:08,804 - INFO: Weighing...
+2023-10-11 16:21:10,828 - INFO: The fake bar is between 0 and 1
+2023-10-11 16:21:13,267 - INFO: Weighing...
+2023-10-11 16:21:15,290 - INFO: The fake bar is number 0
+2023-10-11 16:21:18,356 - ERROR: Something went wrong while weighing things: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:189:5
+NoSuchAlertError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:491:5
+GeckoDriver.prototype._checkIfAlertIsPresent@chrome://remote/content/marionette/driver.sys.mjs:2804:11
+GeckoDriver.prototype.getTextFromDialog@chrome://remote/content/marionette/driver.sys.mjs:2751:8
+despatch@chrome://remote/content/marionette/server.sys.mjs:318:40
+execute@chrome://remote/content/marionette/server.sys.mjs:289:16
+onPacket/<@chrome://remote/content/marionette/server.sys.mjs:262:20
+onPacket@chrome://remote/content/marionette/server.sys.mjs:263:9
+_onJSONObjectReady/<@chrome://remote/content/marionette/transport.sys.mjs:494:20
+
+2023-10-11 16:21:18,356 - ERROR: Exiting program gracefully, goodbye!
+2023-10-11 16:22:08,201 - INFO: Asking for browser in the terminal...
+2023-10-11 16:22:10,166 - INFO: Okay, Chrome it is. 
+2023-10-11 16:22:13,117 - INFO: Currently running without random guess...
+2023-10-11 16:22:13,121 - INFO: Running on a loop...
+2023-10-11 16:22:13,136 - INFO: Setting up the algorithm.. loading the URL...
+2023-10-11 16:22:14,265 - INFO: URL Loaded successfully
+2023-10-11 16:22:14,426 - INFO: Loaded bowls into algorithm
+2023-10-11 16:22:14,492 - INFO: Loaded bar selection buttons into algorithm
+2023-10-11 16:22:14,509 - INFO: Loaded weigh & reset buttons into algorithm
+2023-10-11 16:22:14,509 - INFO: Beginning algorithm...
+2023-10-11 16:22:14,509 - INFO: Divvying up the bars equally...
+2023-10-11 16:22:16,900 - INFO: Weighing...
+2023-10-11 16:22:18,956 - INFO: The fake bar is between 0 and 3
+2023-10-11 16:22:21,177 - INFO: Weighing...
+2023-10-11 16:22:23,221 - INFO: The fake bar is between 0 and 2
+2023-10-11 16:22:25,393 - INFO: Weighing...
+2023-10-11 16:22:27,405 - INFO: The fake bar is number 2
+2023-10-11 16:22:30,466 - ERROR: Something went wrong while weighing things: Message: no such alert
+  (Session info: chrome=117.0.5938.149)
+Stacktrace:
+0   chromedriver                        0x00000001065c3018 chromedriver + 5042200
+1   chromedriver                        0x00000001065ba743 chromedriver + 5007171
+2   chromedriver                        0x00000001061613b6 chromedriver + 447414
+3   chromedriver                        0x00000001061513ba chromedriver + 381882
+4   chromedriver                        0x000000010618600b chromedriver + 598027
+5   chromedriver                        0x00000001061d76bb chromedriver + 931515
+6   chromedriver                        0x0000000106185cbf chromedriver + 597183
+7   chromedriver                        0x00000001061d7433 chromedriver + 930867
+8   chromedriver                        0x00000001061a2062 chromedriver + 712802
+9   chromedriver                        0x00000001061a328e chromedriver + 717454
+10  chromedriver                        0x0000000106584db9 chromedriver + 4787641
+11  chromedriver                        0x0000000106589f6d chromedriver + 4808557
+12  chromedriver                        0x0000000106590ec2 chromedriver + 4837058
+13  chromedriver                        0x000000010658ac9d chromedriver + 4811933
+14  chromedriver                        0x000000010655cefc chromedriver + 4624124
+15  chromedriver                        0x00000001065a9898 chromedriver + 4937880
+16  chromedriver                        0x00000001065a9a50 chromedriver + 4938320
+17  chromedriver                        0x00000001065ba37e chromedriver + 5006206
+18  libsystem_pthread.dylib             0x00007ff80330e1d3 _pthread_start + 125
+19  libsystem_pthread.dylib             0x00007ff803309bd3 thread_start + 15
+
+2023-10-11 16:22:30,466 - ERROR: Exiting program gracefully, goodbye!
