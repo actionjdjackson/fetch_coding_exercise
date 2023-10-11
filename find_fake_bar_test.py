@@ -24,7 +24,6 @@ class FindTheFakeBarAutomator:
 
         self.setup_logging()
         self.load_configuration()
-        self.main()
 
     def setup_logging(self):
         if not os.path.exists(self.LOG_FILE):
@@ -58,7 +57,7 @@ class FindTheFakeBarAutomator:
         print(message)
         logging.info(message)
 
-    def main(self):
+    def run(self):
         try:
             if not self.DEFAULT_BROWSER or not self.RANDOM_GUESS or not self.WAIT_TIME or not self.PAUSE_TIME or not self.URL or not self.LOOP:
                 raise ValueError("Configuration is incomplete")
@@ -156,4 +155,4 @@ class FindTheFakeBarAutomator:
 
 if __name__ == "__main__":
     finder = FindTheFakeBarAutomator()
-    finder.main()
+    finder.run()

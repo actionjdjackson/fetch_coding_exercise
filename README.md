@@ -19,7 +19,7 @@ Before using this script, ensure you have the following:
     ***On Fedora, RHEL, and CentOS, run:***
     1. Run `sudo dnf install python3`
 
-    ***On Windows***
+    ***On Windows:***
     1. Go to <https://www.python.org> and download the Windows installer.
     2. Double-click on the downloaded file and install Python for all users,
     and ensure that Python is added to your path. Click on **Install Now**.
