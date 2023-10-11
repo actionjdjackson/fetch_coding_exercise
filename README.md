@@ -51,24 +51,25 @@ Before using this script, ensure you have the following:
   }
   ```
   - `URL`: The URL of the game website
-  - `DEFAULT_BROWSER`: Ask, Chrome, Firefox, Edge, Safari, Internet Explorer
+  - `DEFAULT_BROWSER`: Ask, Chrome, Firefox, Edge, Safari, or Internet Explorer
   - `RANDOM_GUESS`: Y or N for randomly guessing which is the lightest bar
-  - `WAIT_TIME`: # of seconds to wait after finding the fake bar, before exiting
-  - `PAUSE_TIME`: # of seconds to pause inbetween weighings
-  - `LOOP`: Y or N for looping the main method
+  - `WAIT_TIME`: # of seconds to wait after finding the fake bar, before exiting or looping
+  - `PAUSE_TIME`: # of seconds to pause inbetween weighings, to allow the interface to "Catch up"
+  - `LOOP`: Y or N for looping the algorithm on a fresh load of the page
 
 3. If you are running Safari, please make sure you go to the Develop menu, and enable 'Allow Remote Automation'
 
 4. Run the script:
     ```bash
-    python find_fake_bar_test.py
-    ```
-    or, depending on your installation, you may need to run it as:
-    ```bash
     python3 find_fake_bar_test.py
     ```
+    or, depending on your installation, you may be able to run it as:
+    ```bash
+    python find_fake_bar_test.py
+    ```
 5. If you're configured to ask for a browser, enter the browser's first letter in the prompt.
-   If you want the dialog box for winning the game to go away sooner, change the WAIT_TIME variable in the configuration file. Clicking "OK" on the dialog will cause an error in Firefox and Chrome, and possibly also Edge and IE. Safari asks you wether you want to continue the session or stop it - make sure you click continue, or a similar error will occur in Safari, too. The error causes the program to exit gracefully. So, it's best to just wait for the program to "click" the "OK" button itself and start on the next loop, if you're looping. If you are in loop mode, use Ctrl-C to exit the program, and it will exit gracefully.
+
+6. If you want the dialog box for winning the game to go away sooner, change the WAIT_TIME variable in the configuration file. Clicking "OK" on the dialog will cause an error in Firefox and Chrome, and possibly also Edge and IE. Safari asks you wether you want to continue the session or stop it - make sure you click continue, or a similar error will occur in Safari, too. The error causes the program to exit gracefully. So, it's best to just wait for the program to "click" the "OK" button itself and start on the next loop, if you're looping. If you are in loop mode, use Ctrl-C to exit the program, and it will exit gracefully.
 
 ---
 
