@@ -69,7 +69,9 @@ Before using this script, ensure you have the following:
     ```
 5. If you're configured to ask for a browser, enter the browser's first letter in the prompt.
 
-6. If you want the dialog box for winning the game to go away sooner, change the WAIT_TIME variable in the configuration file. Clicking "OK" on the dialog will cause an error in Firefox and Chrome, and possibly also Edge and IE. Safari asks you wether you want to continue the session or stop it - make sure you click continue, or a similar error will occur in Safari, too. The error causes the program to exit gracefully. So, it's best to just wait for the program to "click" the "OK" button itself and start on the next loop, if you're looping. If you are in loop mode, use Ctrl-C to exit the program, and it will exit gracefully.
+6. If you want the dialog box for winning the game to go away sooner, change the WAIT_TIME variable in the configuration file. Clicking "Close" or "OK" on the dialog will cause an error in Firefox and Chrome, and possibly also Edge and IE. Safari asks you wether you want to continue the session or stop it - make sure you click continue, or a similar error will occur in Safari, too. The error causes the program to exit gracefully. So, it's best to just wait for the program to accept the "Close" or "OK" button itself and start on the next loop, or close down if you aren't looping.
+
+7. If you're looping. If you are in loop mode, use Ctrl-C in the terminal/command prompt to exit the program, and it will exit gracefully.
 
 ---
 
@@ -77,12 +79,17 @@ Before using this script, ensure you have the following:
 
 1. Split the bars in half, one half on each side of the scale, leaving out
     either the last bar or a random guess (Like Deal or No Deal).
+
 2. If the odd-man-out is the fake bar (i.e. the two halves are equal in weight),
     then click that bar's number.
+
 3. If one side is less than the other, take out pairs of bars until the two
     sides are equal, and click the bar that was taken out last (before they were
     equal) on the lighter side.
+
 4. It will always find the fake bar within 4 weigh-ins, if not less.
+
 5. This is all accomplished by way of Selenium WebDriver, for interacting with
-    the webpage's components, and Python's built-in time library, for waiting
-    until the interface updates.
+    the webpage's components, Python's built-in time library, for waiting
+    until the interface updates, Python's built-in logging, os, and json libraries
+    are also used for configuration and logging purposes.
