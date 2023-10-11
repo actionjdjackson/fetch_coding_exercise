@@ -137,7 +137,7 @@ class FindTheFakeBarAutomator:
             if self.LOOP.upper() == "Y":
                 while True:
                     algorithm.find_fake_bar()
-                    self.log_success("Restarting the game.")
+                    self.log_success("Restarting the game (in loop mode).")
             elif self.LOOP.upper() == "N":
                 algorithm.find_fake_bar()
 

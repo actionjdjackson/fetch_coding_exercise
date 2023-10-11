@@ -50,6 +50,8 @@ class FakeFinderAlogrithm():
 
         except Exception as e:
             self.master.log_error(f"Something went wrong setting up the algorithm: {e}")
+            self.master.log_error("Exiting program gracefully, goodbye!")
+            exit()
 
     def find_fake_bar(self):
         """
@@ -123,7 +125,9 @@ class FakeFinderAlogrithm():
                             self.master.log_success(f"The fake bar is between {n + 4} and {7}")
 
         except Exception as e:
-            log_error(f"Something went wrong while weighing things: {e}")
+            self.master.log_error(f"Something went wrong while weighing things: {e}")
+            self.master.log_error("Exiting program gracefully, goodbye!")
+            exit()
 
     def setup_scale(self, n):
         """

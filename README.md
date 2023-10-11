@@ -7,8 +7,30 @@ Test Code Exercise from Fetch
 Before using this script, ensure you have the following:
 
 - Python 3 installed on your system
-- Required Python packages installed. You can install them using `pip install -r requirements.txt`
+    ***On macOS, run:***
+    1. [Install Homebrew](https://brew.sh/#install) if you haven't already
+    2. Run `brew install python`
+
+    ***On Ubuntu, run:***
+    1. Run `sudo apt-get update`
+    2. Run `sudo apt-get install python3.6`
+
+    ***On Fedora, RHEL, and CentOS, run:***
+    1. `sudo dnf install python3`
+
+    ***On Windows***
+    1. Go to <https://www.python.org> and download the Windows installer.
+    2. Double-click on the downloaded file and install Python for all users,
+    and ensure that Python is added to your path. Click on **Install Now**.
+    3. After the installation is complete, click Disable path length limit,
+    and then **Close**.
+    4. Click **Close** to end the installation.
+
+- Required Python packages installed. You can install them using `pip3 install -r requirements.txt` or, in some cases you can use `pip install -r requirements.txt`
+
 - Configuration file (`config.json`) with optional settings
+
+---
 
 ## Usage
 
@@ -24,7 +46,7 @@ Before using this script, ensure you have the following:
     "RANDOM_GUESS": "Y",
     "WAIT_TIME": 5,
     "PAUSE_TIME": 2,
-    "LOOP": "N"
+    "LOOP": "Y"
   }
   ```
   - `URL`: The URL of the game website
@@ -40,12 +62,14 @@ Before using this script, ensure you have the following:
     ```bash
     python find_fake_bar_test.py
     ```
-    or, if you're on macOS, you may need to run it as:
-    ```zsh
+    or, depending on your installation, you may need to run it as:
+    ```bash
     python3 find_fake_bar_test.py
     ```
 5. If you're configured to ask for a browser, enter the browser's first letter in the prompt.
    If you want the dialog box for winning the game to go away sooner, change the WAIT_TIME variable in the configuration file. Clicking "OK" on the dialog will cause an error. If you are in loop mode, use Ctrl-C to exit the program.
+
+---
 
 ## How it Works
 
