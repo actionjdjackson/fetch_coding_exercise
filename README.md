@@ -19,16 +19,22 @@ Before using this script, ensure you have the following:
 2. Configure the `config.json` file with the settings you wish to use:
   ```json
   {
+    "URL": "http://sdetchallenge.fetch.com/",
     "DEFAULT_BROWSER": "Ask",
     "RANDOM_GUESS": "Y",
-    "WAIT_TIME": 10
+    "WAIT_TIME": 10,
+    "PAUSE_TIME": 2
   }
   ```
+  - `URL`: The URL of the game website
   - `DEFAULT_BROWSER`: Ask, Chrome, Firefox, Edge, Safari, Internet Explorer
-  - `RANDOM_GUESS`: Y or N
-  - `WAIT_TIME`: # of seconds to pause after finding the fake bar, before exiting
+  - `RANDOM_GUESS`: true or false
+  - `WAIT_TIME`: # of seconds to wait after finding the fake bar, before exiting
+  - `PAUSE_TIME`: # of seconds to pause inbetween weighings
 
-3. Run the script:
+3. If you are running Safari, please make sure you go to the Develop menu, and enable 'Allow Remote Automation'
+
+4. Run the script:
     ```bash
     python find_fake_bar_test.py
     ```
