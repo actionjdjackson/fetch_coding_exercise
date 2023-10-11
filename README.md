@@ -7,6 +7,7 @@ Test Code Exercise from Fetch
 Before using this script, ensure you have the following:
 
 - Python 3 installed on your system
+
     ***On macOS, run:***
     1. [Install Homebrew](https://brew.sh/#install) if you haven't already
     2. Run `brew install python`
