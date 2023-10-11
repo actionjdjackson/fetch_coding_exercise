@@ -22,7 +22,7 @@ Before using this script, ensure you have the following:
     "URL": "http://sdetchallenge.fetch.com/",
     "DEFAULT_BROWSER": "Ask",
     "RANDOM_GUESS": "Y",
-    "WAIT_TIME": 10,
+    "WAIT_TIME": 5,
     "PAUSE_TIME": 2,
     "LOOP": "N"
   }

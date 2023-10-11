@@ -179,6 +179,7 @@ class FindTheFakeBarAutomator:
             self.driver.switch_to.alert.accept()
 
         elif self.test_weights() == "L":
+            self.log_success(f"The fake bar is between {0} and {3}")
             for n in range(1, 4):
                 self.setup_board(n)
                 self.weigh_button.click()
@@ -195,9 +196,11 @@ class FindTheFakeBarAutomator:
                         self.selection_buttons[0].click()
                         time.sleep(self.WAIT_TIME)
                         self.driver.switch_to.alert.accept()
+                        break
                     else:
-                        self.log_success(f"The fake bar is between {0} and {4-n-1}")
+                        self.log_success(f"The fake bar is between {0} and {3-n}")
         elif self.test_weights() == "R":
+            self.log_success(f"The fake bar is between {4} and {7}")
             for n in range(1, 4):
                 self.setup_board(n)
                 self.weigh_button.click()
@@ -214,6 +217,7 @@ class FindTheFakeBarAutomator:
                         self.selection_buttons[7].click()
                         time.sleep(self.WAIT_TIME)
                         self.driver.switch_to.alert.accept()
+                        break
                     else:
                         self.log_success(f"The fake bar is between {n + 4} and {7}")
 
