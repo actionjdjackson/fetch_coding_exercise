@@ -47,14 +47,15 @@ Before using this script, ensure you have the following:
     "RANDOM_GUESS": "Y",
     "WAIT_TIME": 5,
     "PAUSE_TIME": 2,
-    "LOOP": "Y"
+    "LOOP": "Y",
+    "N_LOOPS": 5
   }
   ```
   - `URL`: The URL of the game website
   - `DEFAULT_BROWSER`: Ask, Chrome, Firefox, Edge, Safari, or Internet Explorer
   - `RANDOM_GUESS`: Y or N for randomly guessing pairs of bars versus the regular algorithm
   - `WAIT_TIME`: # of seconds to wait after finding the fake bar, before exiting or looping
-  - `PAUSE_TIME`: # of seconds to pause inbetween weighings, to allow the interface to "catch up"
+  - `PAUSE_TIME`: # of seconds to pause in between weighings, to allow the interface to "catch up"
   - `LOOP`: Y or N for looping the algorithm on a fresh load of the page
   - `N_LOOPS`: Number of loops to execute (a loop is a complete refresh of the URL and its components, and re-running of the selected algorithm)
 
