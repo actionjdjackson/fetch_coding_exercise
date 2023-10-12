@@ -64,7 +64,7 @@ class FakeFinderAlgorithm():
         and so averages 2.0 over any number of trials. It cannot produce an answer
         in only one weigh-in, as the brute force and random ways of going about
         it can at times return an answer in one weigh-in, but they average to be
-        3.0 and 2.95 over 20 trials, and so the smart way wins!
+        3.0 and 2.95 over 20 trials, respectively, and so the smart way wins!
         """
         try:
             self.setup_algorithm()

@@ -53,7 +53,7 @@ Before using this script, ensure you have the following:
   ```
   - `URL`: The URL of the game website
   - `DEFAULT_BROWSER`: Ask, Chrome, Firefox, Edge, Safari, or Internet Explorer
-  - `SMART`: Y or N for using the smart algorithm, versus regular or random algorithm
+  - `SMART`: Y or N for using the smart algorithm, versus regular or random algorithms
   - `WAIT_TIME`: # of seconds to wait after finding the fake bar, before exiting or looping
   - `PAUSE_TIME`: # of seconds to pause in between weighings, to allow the interface to "catch up"
   - `LOOP`: Y or N for looping the algorithm on a fresh load of the page
@@ -119,7 +119,7 @@ Before using this script, ensure you have the following:
 
 ---
 
-5. This is all accomplished by way of Selenium WebDriver, for interacting with
+    This is all accomplished by way of Selenium WebDriver, for interacting with
     the webpage's components, Python's built-in time library, for waiting
     until the interface updates, Python's built-in logging, os, and json libraries
-    are also used for configuration and logging purposes. There doesn't seem to be much difference between random and organized searching for the fake bar, but the smart way is consistently giving correct answers in only two iterations.
+    are also used for configuration and logging purposes. There doesn't seem to be much difference between random and organized searching for the fake bar, but the smart way is consistently giving correct answers in only two iterations. Every time.
