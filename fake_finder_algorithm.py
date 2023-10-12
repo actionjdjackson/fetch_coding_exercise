@@ -54,6 +54,92 @@ class FakeFinderAlgorithm():
             self.master.log_error("Exiting program gracefully, goodbye!")
             exit()
 
+    def find_fake_bar_smart(self):
+        """
+        This is the way to do it! Separates into three groups of three values
+        each: left, right, and off the scale which narrows it down immediately
+        to a range of only 3 values, which is also separated into three positions
+        - left, right, and off the scale, giving the final answer based on them
+        being balanced, or left/right leaning. It always works after two weigh-ins,
+        and so averages 2.0 over any number of trials. It cannot produce an answer
+        in only one weigh-in, as the brute force and random ways of going about
+        it can at times return an answer in one weigh-in, but they average to be
+        3.0 and 2.95 over 20 trials, and so the smart way wins!
+        """
+        try:
+            self.setup_algorithm()
+
+            self.initial_fill_bowls()
+
+            if self.test_weights() == "E":
+                self.reset_and_fill_bowls(6, 7)
+                if self.test_weights() == "E":
+                    self.make_selection(8)
+                elif self.test_weights() == "L":
+                    self.make_selection(6)
+                elif self.test_weights() == "R":
+                    self.make_selection(7)
+                else:
+                    raise ValueError("Invalid test weight value")
+
+            elif self.test_weights() == "L":
+                self.reset_and_fill_bowls(0, 1)
+                if self.test_weights() == "E":
+                    self.make_selection(2)
+                elif self.test_weights() == "L":
+                    self.make_selection(0)
+                elif self.test_weights() == "R":
+                    self.make_selection(1)
+                else:
+                    raise ValueError("Invalid test weight value")
+
+            elif self.test_weights() == "R":
+                self.reset_and_fill_bowls(3, 4)
+                if self.test_weights() == "E":
+                    self.make_selection(5)
+                elif self.test_weights() == "L":
+                    self.make_selection(3)
+                elif self.test_weights() == "R":
+                    self.make_selection(4)
+                else:
+                    raise ValueError("Invalid test weight value")
+
+            else:
+                raise ValueError("Invalid test weight value")
+
+            return 2
+
+        except ValueError as val_e:
+            self.master.log_error(f"Value Error encountered in smart algorithm: {val_e}")
+        except Exception as e:
+            self.master.log_error(f"An unexpected error occurrred in smart algorithm: {e}")
+
+
+    def initial_fill_bowls(self):
+        for l in range(0, 3):
+            self.left_bowl[l].send_keys(f"{l}")
+        for r in range(3, 6):
+            self.right_bowl[r].send_keys(f"{r}")
+        self.weigh_button.click()
+        time.sleep(self.master.PAUSE_TIME)
+
+    def reset_and_fill_bowls(self, l, r):
+        self.reset_button.click()
+        time.sleep(self.master.PAUSE_TIME)
+        self.left_bowl[0].send_keys(f"{l}")
+        self.right_bowl[0].send_keys(f"{r}")
+        self.weigh_button.click()
+        time.sleep(self.master.PAUSE_TIME)
+
+    def make_selection(self, n):
+        self.master.log_success(f"The fake bar is {n}")
+        self.selection_buttons[n].click()
+        time.sleep(self.master.WAIT_TIME)
+        self.master.log_success(f"{self.driver.switch_to.alert.text}")
+        self.driver.switch_to.alert.accept()
+        self.getWeighIns()
+
+
     def find_fake_bar_random(self):
         """
         This is the random guess version of the algorithm, where the bars are
@@ -63,7 +149,9 @@ class FakeFinderAlgorithm():
         in the resulting alert box and all the weigh-in details. The master class
         handles printing the number of weigh-ins, as it also is in charge of
         handling averaging the number of weigh-ins for a number of loops as defined
-        in the configuration file.
+        in the configuration file. Sometimes it gets lucky and produces an immediate
+        answer after one weigh-in, but it averages to 2.95 weigh-ins over 20 trials.
+        The smart way wins overall, always answering in 2 weigh-ins.
         """
         self.setup_algorithm()
 
@@ -103,14 +191,18 @@ class FakeFinderAlgorithm():
         self.getWeighIns()
         return 4
 
-    def find_fake_bar(self):
+    def find_fake_bar_brute_force(self):
         """
-        This is the find fake bar algorithm, where all the action happens. First
+        This is the brute force algorithm. First
         it sets up everything by calling setup_algorithm, then sets up the scale
         to have all but one bar, evenly divided between the two sides. Then it
         takes away a pair at a time until the test_weights function returns
         a changed value (from L to E or R to E, or E immediately, meaning the
-        odd-man-out was the fake bar.)
+        odd-man-out was the fake bar.) This is a brute force method that averages
+        about 3 weigh-ins over 20 trials. It is not the smart way to do it. The
+        master class handles printing the number of weigh-ins, as it also is in
+        charge of handling averaging the number of weigh-ins for a number of loops
+        as defined in the configuration file.
         """
         self.setup_algorithm()
 
@@ -199,7 +291,7 @@ class FakeFinderAlgorithm():
         """
         Place the bars in corresponding locations, based on 'n' - which iteration
         we're currently on, removing one bar on each side every iteration, from
-        3 down to 0, and from 4 up to 7.
+        3 down to 0, and from 4 up to 7. This is only for the brute force algorithm.
         """
         self.reset_button.click()
         time.sleep(self.master.PAUSE_TIME)

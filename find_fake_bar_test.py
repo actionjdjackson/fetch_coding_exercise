@@ -17,7 +17,7 @@ class FindTheFakeBarAutomator:
 
         self.URL = None
         self.DEFAULT_BROWSER = None
-        self.RANDOM_GUESS = None
+        self.SMART = None
         self.WAIT_TIME = None
         self.PAUSE_TIME = None
         self.LOOP = None
@@ -39,17 +39,17 @@ class FindTheFakeBarAutomator:
 
             self.URL = config.get('URL')
             self.DEFAULT_BROWSER = config.get('DEFAULT_BROWSER')
-            self.RANDOM_GUESS = config.get('RANDOM_GUESS')
+            self.SMART = config.get('SMART')
             self.WAIT_TIME = config.get('WAIT_TIME')
             self.PAUSE_TIME = config.get('PAUSE_TIME')
             self.LOOP = config.get('LOOP')
             self.N_LOOPS = config.get('N_LOOPS')
 
-            if None in (self.N_LOOPS, self.DEFAULT_BROWSER, self.RANDOM_GUESS, self.WAIT_TIME, self.PAUSE_TIME, self.URL, self.LOOP):
+            if None in (self.N_LOOPS, self.DEFAULT_BROWSER, self.SMART, self.WAIT_TIME, self.PAUSE_TIME, self.URL, self.LOOP):
                 raise ValueError("One or more required values are missing in the config file")
         except ValueError as e:
             self.log_error(f"An error occurred while reading the config file: {e}")
-            self.N_LOOPS = self.DEFAULT_BROWSER = self.RANDOM_GUESS = self.WAIT_TIME = self.PAUSE_TIME = self.URL = self.LOOP = None
+            self.N_LOOPS = self.DEFAULT_BROWSER = self.SMART = self.WAIT_TIME = self.PAUSE_TIME = self.URL = self.LOOP = None
 
     def log_error(self, message):
         print(f"Error(s) occurred, please check '{self.LOG_FILE}' for more details")
@@ -61,7 +61,7 @@ class FindTheFakeBarAutomator:
 
     def run(self):
         try:
-            if not self.DEFAULT_BROWSER or not self.RANDOM_GUESS or not self.WAIT_TIME or not self.PAUSE_TIME or not self.URL or not self.LOOP:
+            if not self.DEFAULT_BROWSER or not self.SMART or not self.WAIT_TIME or not self.PAUSE_TIME or not self.URL or not self.LOOP:
                 raise ValueError("Configuration is incomplete")
 
             algorithm = FakeFinderAlgorithm(self)
@@ -124,10 +124,10 @@ class FindTheFakeBarAutomator:
                 raise ValueError("Invalid pause time entered in configuration file.")
             if self.URL.isspace():
                 raise ValueError("Invalid URL entered in configuration file.")
-            if self.RANDOM_GUESS.upper() == "Y":
-                self.log_success("Currently running with random guess...")
-            if self.RANDOM_GUESS.upper() == "N":
-                self.log_success("Currently running without random guess...")
+            if self.SMART.upper() == "Y":
+                self.log_success("Currently running with smart algorithm...")
+            if self.SMART.upper() == "N":
+                self.log_success("Currently running brute force algorithm...")
             if self.LOOP.upper() == "Y":
                 self.log_success("Running on a loop...")
             elif self.LOOP.upper() == "N":
@@ -140,23 +140,23 @@ class FindTheFakeBarAutomator:
             if self.LOOP.upper() == "Y":
                 self.weighs_list = []
                 while len(self.weighs_list) < self.N_LOOPS:
-                    if self.RANDOM_GUESS.upper() == "Y":
-                        weighs = algorithm.find_fake_bar_random()
-                    elif self.RANDOM_GUESS.upper() == "N":
-                        weighs = algorithm.find_fake_bar()
+                    if self.SMART.upper() == "Y":
+                        weighs = algorithm.find_fake_bar_smart()
+                    elif self.SMART.upper() == "N":
+                        weighs = algorithm.find_fake_bar_brute_force()
                     else:
-                        raise ValueError("RANDOM_GUESS config value not valid")
+                        raise ValueError("SMART config value not valid")
                     self.log_success(f"Found fake bar in {weighs} weighs.")
                     self.weighs_list.append(weighs)
                     self.log_success("Restarting the game (in loop mode).")
                 self.log_success(f"Average number of weighs in {len(self.weighs_list)} trials: {sum(self.weighs_list) / len(self.weighs_list)}")
             elif self.LOOP.upper() == "N":
-                if self.RANDOM_GUESS.upper() == "Y":
-                    self.log_success(f"Found fake bar in {algorithm.find_fake_bar_random()} weighs.")
-                elif self.RANDOM_GUESS.upper() == "N":
-                    self.log_success(f"Found fake bar in {algorithm.find_fake_bar()} weighs.")
+                if self.SMART.upper() == "Y":
+                    self.log_success(f"Found fake bar in {algorithm.find_fake_bar_smart()} weighs.")
+                elif self.SMART.upper() == "N":
+                    self.log_success(f"Found fake bar in {algorithm.find_fake_bar_brute_force()} weighs.")
                 else:
-                    raise ValueError("RANDOM_GUESS config value not valid")
+                    raise ValueError("SMART config value not valid")
 
         except ValueError as e_value:
             self.log_error(f"Value Error: {e_value}")

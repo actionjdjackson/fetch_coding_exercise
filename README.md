@@ -1,6 +1,6 @@
 # Finding The Fake Gold Bar
 
-Test Code Exercise from Fetch
+Test Code Exercise for Fetch
 
 ## Prerequisites
 
@@ -44,7 +44,7 @@ Before using this script, ensure you have the following:
   {
     "URL": "http://sdetchallenge.fetch.com/",
     "DEFAULT_BROWSER": "Ask",
-    "RANDOM_GUESS": "Y",
+    "SMART": "Y",
     "WAIT_TIME": 5,
     "PAUSE_TIME": 2,
     "LOOP": "Y",
@@ -53,7 +53,7 @@ Before using this script, ensure you have the following:
   ```
   - `URL`: The URL of the game website
   - `DEFAULT_BROWSER`: Ask, Chrome, Firefox, Edge, Safari, or Internet Explorer
-  - `RANDOM_GUESS`: Y or N for randomly guessing pairs of bars versus the regular algorithm
+  - `SMART`: Y or N for using the smart algorithm, versus regular or random algorithm
   - `WAIT_TIME`: # of seconds to wait after finding the fake bar, before exiting or looping
   - `PAUSE_TIME`: # of seconds to pause in between weighings, to allow the interface to "catch up"
   - `LOOP`: Y or N for looping the algorithm on a fresh load of the page
@@ -77,7 +77,22 @@ Before using this script, ensure you have the following:
 
 ---
 
-## How it Works - The Non-Random Way
+## How it Works - The Smart Way
+
+1. Split the bars into three groups of three values each - left, right, and off-the-scale
+
+2. If one side is initially lighter:
+
+3. That group of 3 is then split into 3 locations - left, right, and off-the-scale, if one side is lighter, that's the fake bar, if it's equal, the off-the-scale value is the fake bar.
+
+4. If the sides are initially equal:
+
+5. Split the off-the-scale values into 3 locations - left, right, and off-the-scale, and if one side is lighter, that's the fake bar, if it's equal, the off-the-scale value is the fake bar.
+
+
+---
+
+## How it Works - The Brute Force Way
 
 1. Split the bars in half, one half on each side of the scale, leaving out the last bar
 
@@ -107,4 +122,4 @@ Before using this script, ensure you have the following:
 5. This is all accomplished by way of Selenium WebDriver, for interacting with
     the webpage's components, Python's built-in time library, for waiting
     until the interface updates, Python's built-in logging, os, and json libraries
-    are also used for configuration and logging purposes. There doesn't seem to be much difference between random and organized searching for the fake bar.
+    are also used for configuration and logging purposes. There doesn't seem to be much difference between random and organized searching for the fake bar, but the smart way is consistently giving correct answers in only two iterations.
