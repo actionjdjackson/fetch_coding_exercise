@@ -55,7 +55,16 @@ class FakeFinderAlogrithm():
             exit()
 
     def find_fake_bar_random(self):
-
+        """
+        This is the random guess version of the algorithm, where the bars are
+        shuffled into random order, then pairs are tested sequentially until
+        one is found to be less than it's mate. That is the fake bar, so return
+        the number of weigh-ins to the master class, and print both the message
+        in the resulting alert box and all the weigh-in details. The master class
+        handles printing the number of weigh-ins, as it also is in charge of
+        handling averaging the number of weigh-ins for a number of loops as defined
+        in the configuration file.
+        """
         self.setup_algorithm()
 
         selections = [0, 1, 2, 3, 4, 5, 6, 7, 8]
