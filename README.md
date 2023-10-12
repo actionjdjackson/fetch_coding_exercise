@@ -56,6 +56,7 @@ Before using this script, ensure you have the following:
   - `WAIT_TIME`: # of seconds to wait after finding the fake bar, before exiting or looping
   - `PAUSE_TIME`: # of seconds to pause inbetween weighings, to allow the interface to "catch up"
   - `LOOP`: Y or N for looping the algorithm on a fresh load of the page
+  - `N_LOOPS`: Number of loops to execute (a loop is a complete refresh of the URL and its components, and re-running of the selected algorithm)
 
 3. If you are running Safari, please make sure you go to the Develop menu, and enable 'Allow Remote Automation'
 

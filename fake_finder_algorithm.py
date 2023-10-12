@@ -6,7 +6,7 @@ import logging
 import json
 import random
 
-class FakeFinderAlogrithm():
+class FakeFinderAlgorithm():
 
     def __init__(self, master):
         self.driver = None

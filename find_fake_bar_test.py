@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from fake_finder_algorithm import FakeFinderAlogrithm
+from fake_finder_algorithm import FakeFinderAlgorithm
 import time
 import os
 import logging
@@ -64,7 +64,7 @@ class FindTheFakeBarAutomator:
             if not self.DEFAULT_BROWSER or not self.RANDOM_GUESS or not self.WAIT_TIME or not self.PAUSE_TIME or not self.URL or not self.LOOP:
                 raise ValueError("Configuration is incomplete")
 
-            algorithm = FakeFinderAlogrithm(self)
+            algorithm = FakeFinderAlgorithm(self)
 
             if self.DEFAULT_BROWSER.upper() == "ASK":
 
