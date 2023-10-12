@@ -4,5 +4,6 @@
   "RANDOM_GUESS": "N",
   "WAIT_TIME": 3,
   "PAUSE_TIME": 2,
-  "LOOP": "N"
+  "LOOP": "Y",
+  "N_LOOPS": 5
 }

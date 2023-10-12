@@ -4,6 +4,7 @@ import time
 import os
 import logging
 import json
+import random
 
 class FakeFinderAlogrithm():
 
@@ -53,6 +54,46 @@ class FakeFinderAlogrithm():
             self.master.log_error("Exiting program gracefully, goodbye!")
             exit()
 
+    def find_fake_bar_random(self):
+
+        self.setup_algorithm()
+
+        selections = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+        random.shuffle(selections)
+        for n in range(0, len(selections) - 1, 2):
+            self.reset_button.click()
+            time.sleep(self.master.PAUSE_TIME)
+            self.left_bowl[selections[n]].send_keys(f"{selections[n]}")
+            self.right_bowl[selections[n + 1]].send_keys(f"{selections[n + 1]}")
+            self.weigh_button.click()
+            self.master.log_success("Weighing...")
+            time.sleep(self.master.PAUSE_TIME)
+            if self.test_weights() == "E":
+                continue
+            if self.test_weights() == "L":
+                self.master.log_success(f"The fake bar is {selections[n]}")
+                self.selection_buttons[selections[n]].click()
+                time.sleep(self.master.WAIT_TIME)
+                self.master.log_success(f"{self.driver.switch_to.alert.text}")
+                self.driver.switch_to.alert.accept()
+                self.getWeighIns()
+                return n // 2 + 1
+            if self.test_weights() == "R":
+                self.master.log_success(f"The fake bar is {selections[n + 1]}")
+                self.selection_buttons[selections[n + 1]].click()
+                time.sleep(self.master.WAIT_TIME)
+                self.master.log_success(f"{self.driver.switch_to.alert.text}")
+                self.driver.switch_to.alert.accept()
+                self.getWeighIns()
+                return n // 2 + 1
+        self.master.log_success(f"The fake bar is {selections[8]}")
+        self.selection_buttons[selections[8]].click()
+        time.sleep(self.master.WAIT_TIME)
+        self.master.log_success(f"{self.driver.switch_to.alert.text}")
+        self.driver.switch_to.alert.accept()
+        self.getWeighIns()
+        return 4
+
     def find_fake_bar(self):
         """
         This is the find fake bar algorithm, where all the action happens. First
@@ -76,7 +117,10 @@ class FakeFinderAlogrithm():
                 self.master.log_success("The fake bar is number 8")
                 self.selection_buttons[8].click()
                 time.sleep(self.master.WAIT_TIME)
+                self.master.log_success(f"{self.driver.switch_to.alert.text}")
                 self.driver.switch_to.alert.accept()
+                self.getWeighIns()
+                return 1
 
             elif self.test_weights() == "L":
                 self.master.log_success(f"The fake bar is between {0} and {3}")
@@ -89,15 +133,19 @@ class FakeFinderAlogrithm():
                         self.master.log_success(f"The fake bar is number {4-n}")
                         self.selection_buttons[4-n].click()
                         time.sleep(self.master.WAIT_TIME)
+                        self.master.log_success(f"{self.driver.switch_to.alert.text}")
                         self.driver.switch_to.alert.accept()
-                        break
+                        self.getWeighIns()
+                        return n + 1
                     elif self.test_weights() == "L":
                         if n == 3:
                             self.master.log_success(f"The fake bar is number {0}")
                             self.selection_buttons[0].click()
                             time.sleep(self.master.WAIT_TIME)
+                            self.master.log_success(f"{self.driver.switch_to.alert.text}")
                             self.driver.switch_to.alert.accept()
-                            break
+                            self.getWeighIns()
+                            return n + 1
                         else:
                             self.master.log_success(f"The fake bar is between {0} and {3-n}")
 
@@ -112,15 +160,19 @@ class FakeFinderAlogrithm():
                         self.master.log_success(f"The fake bar is number {n + 3}")
                         self.selection_buttons[n + 3].click()
                         time.sleep(self.master.WAIT_TIME)
+                        self.master.log_success(f"{self.driver.switch_to.alert.text}")
                         self.driver.switch_to.alert.accept()
-                        break
+                        self.getWeighIns()
+                        return n + 1
                     elif self.test_weights() == "R":
                         if n == 3:
                             self.master.log_success(f"The fake bar is number {7}")
                             self.selection_buttons[7].click()
                             time.sleep(self.master.WAIT_TIME)
+                            self.master.log_success(f"{self.driver.switch_to.alert.text}")
                             self.driver.switch_to.alert.accept()
-                            break
+                            self.getWeighIns()
+                            return n + 1
                         else:
                             self.master.log_success(f"The fake bar is between {n + 4} and {7}")
 
@@ -128,6 +180,11 @@ class FakeFinderAlogrithm():
             self.master.log_error(f"Something went wrong while weighing things: {e}")
             self.master.log_error("Exiting program gracefully, goodbye!")
             exit()
+
+    def getWeighIns(self):
+        weighins = self.driver.find_elements(By.XPATH, "//ol/li")
+        for n in range(0, len(weighins)):
+            self.master.log_success(f"{n+1}. {weighins[n].get_attribute('innerText')}")
 
     def setup_scale(self, n):
         """

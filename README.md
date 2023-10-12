@@ -52,7 +52,7 @@ Before using this script, ensure you have the following:
   ```
   - `URL`: The URL of the game website
   - `DEFAULT_BROWSER`: Ask, Chrome, Firefox, Edge, Safari, or Internet Explorer
-  - `RANDOM_GUESS`: Y or N for randomly guessing which is the lightest bar
+  - `RANDOM_GUESS`: Y or N for randomly guessing pairs of bars versus the regular algorithm
   - `WAIT_TIME`: # of seconds to wait after finding the fake bar, before exiting or looping
   - `PAUSE_TIME`: # of seconds to pause inbetween weighings, to allow the interface to "catch up"
   - `LOOP`: Y or N for looping the algorithm on a fresh load of the page
@@ -75,10 +75,9 @@ Before using this script, ensure you have the following:
 
 ---
 
-## How it Works
+## How it Works - The Non-Random Way
 
-1. Split the bars in half, one half on each side of the scale, leaving out
-    either the last bar or a random guess (Like Deal or No Deal).
+1. Split the bars in half, one half on each side of the scale, leaving out the last bar
 
 2. If the odd-man-out is the fake bar (i.e. the two halves are equal in weight),
     then click that bar's number.
@@ -87,9 +86,23 @@ Before using this script, ensure you have the following:
     sides are equal, and click the bar that was taken out last (before they were
     equal) on the lighter side.
 
-4. It will always find the fake bar within 4 weigh-ins, if not less.
+4. It will always find the fake bar within 4 weigh-ins, if not less. It averages 3.0 weigh-ins over 20 loops.
+
+---
+
+## How it Works - The Random Way
+
+1. Shuffle the numbers randomly
+
+2. Put one pair of bars in the left and right bowls
+
+3. If one bar is less than the other, we've found the fake bar, so click that bar's numbers
+
+4. If the bars are equal, repeat steps 2 & 3. It also will always find the fake bar within 4 weigh-ins, if not less. It averages 2.95 weigh-ins over 20 loops.
+
+---
 
 5. This is all accomplished by way of Selenium WebDriver, for interacting with
     the webpage's components, Python's built-in time library, for waiting
     until the interface updates, Python's built-in logging, os, and json libraries
-    are also used for configuration and logging purposes.
+    are also used for configuration and logging purposes. There doesn't seem to be much difference between random and organized searching for the fake bar.

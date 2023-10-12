@@ -21,6 +21,7 @@ class FindTheFakeBarAutomator:
         self.WAIT_TIME = None
         self.PAUSE_TIME = None
         self.LOOP = None
+        self.N_LOOPS = None
 
         self.setup_logging()
         self.load_configuration()
@@ -42,12 +43,13 @@ class FindTheFakeBarAutomator:
             self.WAIT_TIME = config.get('WAIT_TIME')
             self.PAUSE_TIME = config.get('PAUSE_TIME')
             self.LOOP = config.get('LOOP')
+            self.N_LOOPS = config.get('N_LOOPS')
 
-            if None in (self.DEFAULT_BROWSER, self.RANDOM_GUESS, self.WAIT_TIME, self.PAUSE_TIME, self.URL, self.LOOP):
+            if None in (self.N_LOOPS, self.DEFAULT_BROWSER, self.RANDOM_GUESS, self.WAIT_TIME, self.PAUSE_TIME, self.URL, self.LOOP):
                 raise ValueError("One or more required values are missing in the config file")
         except ValueError as e:
             self.log_error(f"An error occurred while reading the config file: {e}")
-            self.DEFAULT_BROWSER = self.RANDOM_GUESS = self.WAIT_TIME = self.PAUSE_TIME = self.URL = self.LOOP = None
+            self.N_LOOPS = self.DEFAULT_BROWSER = self.RANDOM_GUESS = self.WAIT_TIME = self.PAUSE_TIME = self.URL = self.LOOP = None
 
     def log_error(self, message):
         print(f"Error(s) occurred, please check '{self.LOG_FILE}' for more details")
@@ -123,7 +125,7 @@ class FindTheFakeBarAutomator:
             if self.URL.isspace():
                 raise ValueError("Invalid URL entered in configuration file.")
             if self.RANDOM_GUESS.upper() == "Y":
-                raise Exception("Currently do not support random guess.")
+                self.log_success("Currently running with random guess...")
             if self.RANDOM_GUESS.upper() == "N":
                 self.log_success("Currently running without random guess...")
             if self.LOOP.upper() == "Y":
@@ -132,19 +134,36 @@ class FindTheFakeBarAutomator:
                 self.log_success("Running only once...")
             else:
                 raise ValueError("Invalid value for loop option in configuration file")
+            if self.N_LOOPS <= 0:
+                raise ValueError("Invalid number of loops (must be at least 1)")
 
             if self.LOOP.upper() == "Y":
-                while True:
-                    algorithm.find_fake_bar()
+                self.weighs_list = []
+                while len(self.weighs_list) < self.N_LOOPS:
+                    if self.RANDOM_GUESS.upper() == "Y":
+                        weighs = algorithm.find_fake_bar_random()
+                    elif self.RANDOM_GUESS.upper() == "N":
+                        weighs = algorithm.find_fake_bar()
+                    else:
+                        raise ValueError("RANDOM_GUESS config value not valid")
+                    self.log_success(f"Found fake bar in {weighs} weighs.")
+                    self.weighs_list.append(weighs)
                     self.log_success("Restarting the game (in loop mode).")
+                self.log_success(f"Average number of weighs in {len(self.weighs_list)} trials: {sum(self.weighs_list) / len(self.weighs_list)}")
             elif self.LOOP.upper() == "N":
-                algorithm.find_fake_bar()
+                if self.RANDOM_GUESS.upper() == "Y":
+                    self.log_success(f"Found fake bar in {algorithm.find_fake_bar_random()} weighs.")
+                elif self.RANDOM_GUESS.upper() == "N":
+                    self.log_success(f"Found fake bar in {algorithm.find_fake_bar()} weighs.")
+                else:
+                    raise ValueError("RANDOM_GUESS config value not valid")
 
         except ValueError as e_value:
             self.log_error(f"Value Error: {e_value}")
         except Exception as e:
             self.log_error(f"An unexpected error occurred: {e}\n")
         except KeyboardInterrupt as kb:
+            self.log_success(f"Average number of weighs: {sum(self.weighs_list) / len(self.weighs_list)}")
             self.log_success(f"\nExiting program gracefully, goodbye!")
             exit()
         finally:
