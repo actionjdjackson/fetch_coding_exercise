@@ -117,6 +117,7 @@ class FindTheFakeBarAutomator:
             self.log_error(f"Exiting program gracefully, goodbye!")
             exit()
 
+
     def log_error(self, message):
         print(f"Error(s) occurred, please check '{self.LOG_FILE}' for more details")
         logging.error(message)
@@ -256,7 +257,10 @@ class FindTheFakeBarAutomator:
             self.log_error(f"Exiting program gracefully, goodbye!")
             exit()
         except Exception as e:
-            self.log_error(f"An unexpected error occurred: {e}\n")
+            self.log_error(f"An unexpected error occurred: {e}")
+            if "'Allow Remote Automation'" in str(e):
+                print("Ooops, you forgot to enable 'Allow Remote Automation' "
+                    + "in the Develop menu, in Safari")
             self.log_error(f"Exiting program gracefully, goodbye!")
             exit()
         except KeyboardInterrupt as kb:
