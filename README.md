@@ -100,12 +100,11 @@ you clone the repo, run: `pip3 install -r requirements.txt`
 
 1. Split the bars in half, one half on each side of the scale, leaving out the last bar
 
-2. If the odd-man-out is the fake bar (i.e. the two halves are equal in weight),
-    then click that bar's number.
+2. If the two halves are equal in weight, the odd-man-out is the fake bar
 
 3. If one side is less than the other, take out pairs of bars until the two
-    sides are equal, and click the bar that was taken out last (before they were
-    equal) on the lighter side.
+    sides are equal, and the bar that was taken out last (before they were
+    equal) is the fake bar.
 
 4. It will always find the fake bar within 4 weigh-ins, if not less. It averages 3.0 weigh-ins over 20 loops.
 
@@ -113,11 +112,11 @@ you clone the repo, run: `pip3 install -r requirements.txt`
 
 ## How it Works - The Random Way
 
-1. Shuffle the numbers randomly
+1. Shuffle the bars randomly
 
 2. Put one pair of bars in the left and right bowls
 
-3. If one bar is less than the other, we've found the fake bar, so click that bar's numbers
+3. If one bar is less than the other, we've found the fake bar
 
 4. If the bars are equal, repeat steps 2 & 3. It also will always find the fake bar within 4 weigh-ins, if not less. It averages 2.95 weigh-ins over 20 loops.
 
