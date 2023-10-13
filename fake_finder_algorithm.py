@@ -9,6 +9,7 @@ class FakeFinderAlgorithm():
         self.driver = None
         self.master = master
 
+
     def setup_algorithm(self):
         """
         Sets up the necessary components for the algorithm to work with, including
@@ -40,6 +41,8 @@ class FakeFinderAlgorithm():
                                                         f"coin_{n}"))
 
             self.weigh_button = self.driver.find_element(By.ID, "weigh")
+            # Grabs the second element named "reset" - the reset button, not the
+            # weigh-in result, which happened to also be named "reset"
             self.reset_button = self.driver.find_elements(By.ID, "reset")[1]
 
             self.master.log_success("Loaded components into algorithm")
@@ -48,6 +51,7 @@ class FakeFinderAlgorithm():
             self.master.log_error(f"Something went wrong setting up the algorithm: {e}")
             self.master.log_error("Exiting program gracefully, goodbye!")
             exit()
+
 
     def find_fake_smart(self):
         """
@@ -67,42 +71,47 @@ class FakeFinderAlgorithm():
             self.master.log_success("Beginning the smart algorithm...")
             self.master.log_success("Splitting into three groups...")
             self.initial_fill_bowls()
+            self.weigh_in()
+            initial_test = self.test_weights()
 
-            if self.test_weights() == "E":
+            if initial_test == "E":  # Are the two sides equal?
                 self.master.log_success("Fake bar is between 6 and 8")
-                self.reset_and_fill_bowls(6, 7)
+                self.reset_and_fill_bowls(6, 7)  # 8 is off the scale
                 self.weigh_in()
-                if self.test_weights() == "E":
+                second_test = self.test_weights()
+                if second_test == "E":
                     self.make_selection(8)
-                elif self.test_weights() == "L":
+                elif second_test == "L":
                     self.make_selection(6)
-                elif self.test_weights() == "R":
+                elif second_test == "R":
                     self.make_selection(7)
                 else:
                     raise ValueError("Invalid test weight value")
 
-            elif self.test_weights() == "L":
+            elif initial_test == "L":  # is left lighter?
                 self.master.log_success("Fake bar is between 0 and 2")
-                self.reset_and_fill_bowls(0, 1)
+                self.reset_and_fill_bowls(0, 1)  # 2 is off the scale
                 self.weigh_in()
-                if self.test_weights() == "E":
+                second_test = self.test_weights()
+                if second_test == "E":
                     self.make_selection(2)
-                elif self.test_weights() == "L":
+                elif second_test == "L":
                     self.make_selection(0)
-                elif self.test_weights() == "R":
+                elif second_test == "R":
                     self.make_selection(1)
                 else:
                     raise ValueError("Invalid test weight value")
 
-            elif self.test_weights() == "R":
+            elif initial_test == "R":  # is right lighter?
                 self.master.log_success("Fake bar is between 3 and 5")
-                self.reset_and_fill_bowls(3, 4)
+                self.reset_and_fill_bowls(3, 4)  # 5 is off the scale
                 self.weigh_in()
-                if self.test_weights() == "E":
+                second_test = self.test_weights()
+                if second_test == "E":
                     self.make_selection(5)
-                elif self.test_weights() == "L":
+                elif second_test == "L":
                     self.make_selection(3)
-                elif self.test_weights() == "R":
+                elif second_test == "R":
                     self.make_selection(4)
                 else:
                     raise ValueError("Invalid test weight value")
@@ -122,6 +131,7 @@ class FakeFinderAlgorithm():
                                   f"algorithm: {e}")
             self.master.log_error("\nShutting down gracefully. Bye.")
             exit()
+
 
     def find_fake_random(self):
         """
@@ -165,6 +175,7 @@ class FakeFinderAlgorithm():
             self.master.log_error(f"Something went wrong in the random algorithm: {e}")
             self.master.log_error("Exiting program gracefully, goodbye!")
             exit()
+
 
     def find_fake_brute_force(self):
         """
@@ -232,20 +243,20 @@ class FakeFinderAlgorithm():
             self.master.log_error("Exiting program gracefully, goodbye!")
             exit()
 
+
     def initial_fill_bowls(self):
         for l in range(0, 3):
             self.left_bowl[l].send_keys(f"{l}")
         for r in range(3, 6):
             self.right_bowl[r].send_keys(f"{r}")
-        self.weigh_button.click()
-        self.master.log_success("Weighing...")
-        time.sleep(self.master.PAUSE_TIME)
+
 
     def reset_and_fill_bowls(self, l, r):
         self.reset_button.click()
         time.sleep(self.master.PAUSE_TIME)
         self.left_bowl[0].send_keys(f"{l}")
         self.right_bowl[0].send_keys(f"{r}")
+
 
     def make_selection(self, n):
         self.master.log_success(f"The fake bar is {n}")
@@ -255,18 +266,21 @@ class FakeFinderAlgorithm():
         try:
             self.driver.switch_to.alert.accept()
         except Exception as e:
-            time.sleep(0)
+            pass
         self.getWeighIns()
+
 
     def weigh_in(self):
         self.weigh_button.click()
         self.master.log_success("Weighing...")
         time.sleep(self.master.PAUSE_TIME)
 
+
     def getWeighIns(self):
-        weighins = self.driver.find_elements(By.XPATH, "//ol/li") #find weigh-ins
+        weighins = self.driver.find_elements(By.XPATH, "//ol/li")  # find weigh-ins as li's in an ol
         for n in range(0, len(weighins)):
             self.master.log_success(f"{n+1}. {weighins[n].get_attribute('innerText')}")
+
 
     def setup_scale_brute_force(self, n):
         """
@@ -282,6 +296,7 @@ class FakeFinderAlgorithm():
 
         for r in range(4 + n, 8):   #working our way up from 4 to 7 on the right
             self.right_bowl[r].send_keys(f"{r}")
+
 
     def test_weights(self):
         """
