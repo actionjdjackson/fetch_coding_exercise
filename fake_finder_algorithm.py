@@ -255,7 +255,7 @@ class FakeFinderAlgorithm():
         try:
             self.driver.switch_to.alert.accept()
         except Exception as e:
-            self.master.log_success(f"You closed the alert dialog box.")
+            time.sleep(0)
         self.getWeighIns()
 
     def weigh_in(self):
