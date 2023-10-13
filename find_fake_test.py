@@ -251,8 +251,8 @@ class FindTheFakeBarAutomator:
                     self.log_success(f"Found fake bar in {weighs} weighs "
                                     + f"using the random algorithm.")
 
-        except ValueError as e_value:
-            self.log_error(f"Value Error: {e_value}")
+        except ValueError as val_e:
+            self.log_error(f"Value Error: {val_e}")
             self.log_error(f"Exiting program gracefully, goodbye!")
             exit()
         except Exception as e:
