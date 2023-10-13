@@ -1,4 +1,5 @@
 from fake_finder_algorithm import FakeFinderAlgorithm
+import time
 
 class SmartAlgorithm(FakeFinderAlgorithm):
 
@@ -18,8 +19,9 @@ class SmartAlgorithm(FakeFinderAlgorithm):
         it can at times return an answer in one weigh-in, but they average to be
         3.0 and 2.95 over 20 trials, respectively, and so the smart way wins!
         """
+        self.setup_algorithm()
+
         try:
-            self.setup_algorithm()
 
             self.master.log_success("Beginning the smart algorithm...")
             self.master.log_success("Splitting into three groups...")
@@ -83,3 +85,17 @@ class SmartAlgorithm(FakeFinderAlgorithm):
                                   f"algorithm: {e}")
             self.master.log_error("\nShutting down gracefully. Bye.")
             exit()
+
+
+    def initial_fill_bowls(self):
+        for l in range(0, 3):
+            self.left_bowl[l].send_keys(f"{l}")
+        for r in range(3, 6):
+            self.right_bowl[r].send_keys(f"{r}")
+
+
+    def reset_and_fill_bowls(self, l, r):
+        self.reset_button.click()
+        time.sleep(self.master.PAUSE_TIME)
+        self.left_bowl[0].send_keys(f"{l}")
+        self.right_bowl[0].send_keys(f"{r}")

@@ -3,6 +3,18 @@ import random
 import time
 
 class RandomAlgorithm(FakeFinderAlgorithm):
+    """
+    This is the random guess version of the algorithm, where the bars are
+    shuffled into random order, then pairs are tested sequentially until
+    one is found to be less than it's mate. That is the fake bar, so return
+    the number of weigh-ins to the master class, and print both the message
+    in the resulting alert box and all the weigh-in details. The master class
+    handles printing the number of weigh-ins, as it also is in charge of
+    handling averaging the number of weigh-ins for a number of loops as defined
+    in the configuration file. Sometimes it gets lucky and produces an immediate
+    answer after one weigh-in, but it averages to 2.95 weigh-ins over 20 trials.
+    The smart way wins overall, always answering in 2 weigh-ins.
+    """
 
     def __init__(self, master):
         super().__init__(master)
@@ -10,20 +22,11 @@ class RandomAlgorithm(FakeFinderAlgorithm):
 
     def find_fake(self):
         """
-        This is the random guess version of the algorithm, where the bars are
-        shuffled into random order, then pairs are tested sequentially until
-        one is found to be less than it's mate. That is the fake bar, so return
-        the number of weigh-ins to the master class, and print both the message
-        in the resulting alert box and all the weigh-in details. The master class
-        handles printing the number of weigh-ins, as it also is in charge of
-        handling averaging the number of weigh-ins for a number of loops as defined
-        in the configuration file. Sometimes it gets lucky and produces an immediate
-        answer after one weigh-in, but it averages to 2.95 weigh-ins over 20 trials.
-        The smart way wins overall, always answering in 2 weigh-ins.
+        Do the stuff. Find the fake - the random way.
         """
-        try:
-            self.setup_algorithm()
+        self.setup_algorithm()
 
+        try:
             self.master.log_success("Beginning random algorithm...")
             selections = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 

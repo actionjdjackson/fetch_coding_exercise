@@ -53,20 +53,6 @@ class FakeFinderAlgorithm():
             exit()
 
 
-    def initial_fill_bowls(self):
-        for l in range(0, 3):
-            self.left_bowl[l].send_keys(f"{l}")
-        for r in range(3, 6):
-            self.right_bowl[r].send_keys(f"{r}")
-
-
-    def reset_and_fill_bowls(self, l, r):
-        self.reset_button.click()
-        time.sleep(self.master.PAUSE_TIME)
-        self.left_bowl[0].send_keys(f"{l}")
-        self.right_bowl[0].send_keys(f"{r}")
-
-
     def make_selection(self, n):
         self.master.log_success(f"The fake bar is {n}")
         self.selection_buttons[n].click()
@@ -89,22 +75,6 @@ class FakeFinderAlgorithm():
         weighins = self.driver.find_elements(By.XPATH, "//ol/li")  # find weigh-ins as li's in an ol
         for n in range(0, len(weighins)):
             self.master.log_success(f"{n+1}. {weighins[n].get_attribute('innerText')}")
-
-
-    def setup_scale_brute_force(self, n):
-        """
-        Place the bars in corresponding locations, based on 'n' - which iteration
-        we're currently on, removing one bar on each side every iteration, from
-        3 down to 0, and from 4 up to 7. This is only for the brute force algorithm.
-        """
-        self.reset_button.click()
-        time.sleep(self.master.PAUSE_TIME)
-
-        for l in range(0, 4 - n):  #working our way down from 3 to 0 on the left
-            self.left_bowl[l].send_keys(f"{l}")
-
-        for r in range(4 + n, 8):   #working our way up from 4 to 7 on the right
-            self.right_bowl[r].send_keys(f"{r}")
 
 
     def test_weights(self):

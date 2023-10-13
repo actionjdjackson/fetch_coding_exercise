@@ -1,22 +1,27 @@
 from fake_finder_algorithm import FakeFinderAlgorithm
+import time
 
 class BruteForceAlgorithm(FakeFinderAlgorithm):
+    """
+    This is the brute force algorithm. It is not the smart way to do it. First
+    it sets up everything by calling setup_algorithm, then sets up the scale
+    to have all but one bar, evenly divided between the two sides. Then it
+    takes away a pair at a time until the test_weights function returns
+    a changed value (from L to E or R to E, or E immediately, meaning the
+    odd-man-out was the fake bar.) This is a brute force method that averages
+    about 3 weigh-ins over 20 trials. It is not the smart way to do it. The
+    master class handles printing the number of weigh-ins, as it also is in
+    charge of handling averaging the number of weigh-ins for a number of loops
+    as defined in the configuration file.
+    """
 
     def __init__(self, master):
         super().__init__(master)
 
+
     def find_fake(self):
         """
-        This is the brute force algorithm. It is not the smart way to do it. First
-        it sets up everything by calling setup_algorithm, then sets up the scale
-        to have all but one bar, evenly divided between the two sides. Then it
-        takes away a pair at a time until the test_weights function returns
-        a changed value (from L to E or R to E, or E immediately, meaning the
-        odd-man-out was the fake bar.) This is a brute force method that averages
-        about 3 weigh-ins over 20 trials. It is not the smart way to do it. The
-        master class handles printing the number of weigh-ins, as it also is in
-        charge of handling averaging the number of weigh-ins for a number of loops
-        as defined in the configuration file.
+        Do the stuff. Find the fake - the brute force way.
         """
         self.setup_algorithm()
 
@@ -68,3 +73,18 @@ class BruteForceAlgorithm(FakeFinderAlgorithm):
                                   f"algorithm: {e}")
             self.master.log_error("Exiting program gracefully, goodbye!")
             exit()
+
+    def setup_scale_brute_force(self, n):
+        """
+        Place the bars in corresponding locations, based on 'n' - which iteration
+        we're currently on, removing one bar on each side every iteration, from
+        3 down to 0, and from 4 up to 7. This is only for the brute force algorithm.
+        """
+        self.reset_button.click()
+        time.sleep(self.master.PAUSE_TIME)
+
+        for l in range(0, 4 - n):  #working our way down from 3 to 0 on the left
+            self.left_bowl[l].send_keys(f"{l}")
+
+        for r in range(4 + n, 8):   #working our way up from 4 to 7 on the right
+            self.right_bowl[r].send_keys(f"{r}")
