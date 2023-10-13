@@ -92,7 +92,8 @@ class FindTheFakeBarAutomator:
             elif self.ALGORITHM.upper() == "R":
                 self.log_success("Currently running random algorithm...")
             else:
-                raise ValueError("Invalid ALGORITHM value entered in configuration file")
+                raise ValueError("ALGORITHM does not have a valid value. Must be "
+                               + "'S', 'B', or 'R'. Check config.json file")
 
             if self.LOOP.upper() == "Y":
                 self.log_success("Running on a loop...")
@@ -171,34 +172,37 @@ class FindTheFakeBarAutomator:
                 self.algorithm = BruteForceAlgorithm(self)
             elif self.ALGORITHM == "R":
                 self.algorithm = RandomAlgorithm(self)
-            else:
-                raise ValueError("ALGORITHM not a valid value. Must be S,B,R"
-                                + "Check config.json file")
 
             if self.DEFAULT_BROWSER.upper() == "ASK":
 
                 self.ask_for_browser()
 
             elif self.DEFAULT_BROWSER.upper() == "SAFARI":
+
                 self.algorithm.driver = webdriver.Safari()
                 self.log_success("Loaded Safari webdriver as configured... "
                     + "Please make sure you go to the Develop menu, and enable "
                     + "'Allow Remote Automation'")
+
             elif self.DEFAULT_BROWSER.upper() == "FIREFOX":
                 self.algorithm.driver = webdriver.Firefox()
                 self.log_success("Loaded Firefox webdriver as configured...")
+
             elif self.DEFAULT_BROWSER.upper() == "CHROME":
                 chrome_options = webdriver.ChromeOptions()
                 chrome_options.add_experimental_option("excludeSwitches",
                                                         ['enable-automation'])
                 self.algorithm.driver = webdriver.Chrome(options=chrome_options)
                 self.log_success("Loaded Chrome webdriver as configured...")
+
             elif self.DEFAULT_BROWSER.upper() == "EDGE":
                 self.algorithm.driver = webdriver.Edge()
                 self.log_success("Loaded Edge webdriver as configured...")
+
             elif self.DEFAULT_BROWSER.upper() == "INTERNET EXPLORER":
                 self.algorithm.driver = webdriver.IE()
                 self.log_success("Loaded Internet Explorer webdriver as configured...")
+
             else:
                 raise ValueError("Invalid browser entered in configuration file.")
 
