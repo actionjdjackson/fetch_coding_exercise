@@ -48,12 +48,14 @@ class FindTheFakeBarAutomator:
 
         self.weighs_list = []
 
+
     def setup_logging(self):
         if not os.path.exists(self.LOG_FILE):
             with open(self.LOG_FILE, 'w') as log_file:
                 log_file.write('')
         logging.basicConfig(filename=self.LOG_FILE, level=logging.INFO,
                             format='%(asctime)s - %(levelname)s: %(message)s')
+
 
     def load_configuration(self):
         try:
@@ -104,13 +106,16 @@ class FindTheFakeBarAutomator:
             self.log_error(f"An error occurred while reading the config file: {e}")
             self.N_LOOPS = self.DEFAULT_BROWSER = self.ALGORITHM = self.WAIT_TIME = self.PAUSE_TIME = self.URL = self.LOOP = None
 
+
     def log_error(self, message):
         print(f"Error(s) occurred, please check '{self.LOG_FILE}' for more details")
         logging.error(message)
 
+
     def log_success(self, message):
         print(message)
         logging.info(message)
+
 
     def ask_for_browser(self):
         while True:
@@ -145,12 +150,21 @@ class FindTheFakeBarAutomator:
                 self.log_error(f"Ooops, I didn't understand that response.")
                 continue
 
+
     def run(self):
         try:
             if not self.DEFAULT_BROWSER or not self.ALGORITHM or not self.WAIT_TIME or not self.PAUSE_TIME or not self.URL or not self.LOOP:
                 raise ValueError("Configuration is incomplete")
 
-            self.algorithm = FakeFinderAlgorithm(self)
+            if self.ALGORITHM == "S":
+                self.algorithm = SmartAlgorithm(self)
+            elif self.ALGORITHM == "B":
+                self.algorithm = BruteForceAlgorithm(self)
+            elif self.ALGORITHM == "R":
+                self.algorithm = RandomAlgorithm(self)
+            else:
+                raise ValueError("ALGORITHM not a valid value. Must be S,B,R"
+                                + "Check config.json file")
 
             if self.DEFAULT_BROWSER.upper() == "ASK":
 
@@ -187,17 +201,17 @@ class FindTheFakeBarAutomator:
                                    + f"of {self.N_LOOPS})")
 
                     if self.ALGORITHM.upper() == "S":
-                        weighs = self.algorithm.find_fake_smart()
+                        weighs = self.algorithm.find_fake()
                         self.log_success(f"Found fake bar in {weighs} weighs "
                                        + f"using the smart algorithm.")
 
                     elif self.ALGORITHM.upper() == "B":
-                        weighs = self.algorithm.find_fake_brute_force()
+                        weighs = self.algorithm.find_fake()
                         self.log_success(f"Found fake bar in {weighs} weighs "
                                        + f"using the brute force algorithm.")
 
                     elif self.ALGORITHM.upper() == "R":
-                        weighs = self.algorithm.find_fake_random()
+                        weighs = self.algorithm.find_fake()
                         self.log_success(f"Found fake bar in {weighs} weighs "
                                        + f"using the random algorithm.")
 
@@ -210,17 +224,17 @@ class FindTheFakeBarAutomator:
             elif self.LOOP.upper() == "N":  # Running only once
 
                 if self.ALGORITHM.upper() == "S":
-                    weighs = self.algorithm.find_fake_smart()
+                    weighs = self.algorithm.find_fake()
                     self.log_success(f"Found fake bar in {weighs} weighs "
                                     + f"using the smart algorithm.")
 
                 elif self.ALGORITHM.upper() == "B":
-                    weighs = self.algorithm.find_fake_brute_force()
+                    weighs = self.algorithm.find_fake()
                     self.log_success(f"Found fake bar in {weighs} weighs "
                                    + f"using the brute force algorithm.")
 
                 elif self.ALGORITHM.upper() == "R":
-                    weighs = self.algorithm.find_fake_random()
+                    weighs = self.algorithm.find_fake()
                     self.log_success(f"Found fake bar in {weighs} weighs "
                                     + f"using the random algorithm.")
 
