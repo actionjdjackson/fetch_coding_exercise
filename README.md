@@ -47,7 +47,7 @@ you clone the repo, run: `pip3 install -r requirements.txt`
     "URL": "http://sdetchallenge.fetch.com/",
     "DEFAULT_BROWSER": "Ask",
     "ALGORITHM": "S",
-    "WAIT_TIME": 5,
+    "WAIT_TIME": 2,
     "PAUSE_TIME": 2,
     "LOOP": "Y",
     "N_LOOPS": 5
