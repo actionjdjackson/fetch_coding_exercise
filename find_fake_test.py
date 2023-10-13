@@ -26,7 +26,7 @@ class FindTheFakeBarAutomator:
         success alert dialog box opens, and before it is automatically closed
         PAUSE_TIME = How long (in seconds) to wait between weigh-ins and resets,
         for the interface to "catch up."
-        LOOP = Y for looping, N for a single-shot
+        LOOP = "Y" for looping, "N" for a single-shot
         N_LOOPS = How many times to loop, must be an integer >= 1
         Also sets up the logging system, and loads values into the program
         constants from the config.json file. Checks to see if they are valid.
