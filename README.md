@@ -91,7 +91,7 @@ you clone the repo, run: `pip3 install -r requirements.txt`
 
 4. If the sides are initially equal:
 
-5. Split the off-the-scale values into 3 locations - left, right, and off-the-scale, and if one side is lighter, that's the fake bar, if it's equal, the off-the-scale value is the fake bar.
+5. Split the off-the-scale values into 3 locations - left, right, and off-the-scale, and if one side is lighter, that's the fake bar, if it's equal, the off-the-scale value is the fake bar. It will always find the fake bar in 2 weigh-ins, every time.
 
 
 ---
