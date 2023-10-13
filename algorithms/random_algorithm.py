@@ -1,9 +1,11 @@
 from fake_finder_algorithm import FakeFinderAlgorithm
+import random
+import time
 
 class RandomAlgorithm(FakeFinderAlgorithm):
 
     def __init__(self, master):
-        super().__init__(self, master):
+        super().__init__(master)
 
 
     def find_fake(self):

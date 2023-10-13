@@ -48,7 +48,7 @@ class FakeFinderAlgorithm():
             self.master.log_success("Loaded components into algorithm")
 
         except Exception as e:
-            self.master.log_error(f"Something went wrong setting up the algorithm: {e}")
+            self.master.log_error(f"An error occurred setting up algorithm: {e}")
             self.master.log_error("Exiting program gracefully, goodbye!")
             exit()
 

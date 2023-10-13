@@ -3,7 +3,7 @@ from fake_finder_algorithm import FakeFinderAlgorithm
 class SmartAlgorithm(FakeFinderAlgorithm):
 
     def __init__(self, master):
-        super().__init__(self, master):
+        super().__init__(master)
 
 
     def find_fake(self):

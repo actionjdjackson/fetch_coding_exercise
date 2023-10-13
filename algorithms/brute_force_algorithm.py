@@ -3,7 +3,7 @@ from fake_finder_algorithm import FakeFinderAlgorithm
 class BruteForceAlgorithm(FakeFinderAlgorithm):
 
     def __init__(self, master):
-        super().__init__(self, master):
+        super().__init__(master)
 
     def find_fake(self):
         """
@@ -25,9 +25,7 @@ class BruteForceAlgorithm(FakeFinderAlgorithm):
             self.master.log_success("Divvying up the bars equally...")
 
             self.setup_scale_brute_force(0)
-            self.weigh_button.click()
-            self.master.log_success("Weighing...")
-            time.sleep(self.master.PAUSE_TIME)
+            self.weigh_in()
 
             if self.test_weights() == "E":
                 self.make_selection(8)
@@ -47,7 +45,7 @@ class BruteForceAlgorithm(FakeFinderAlgorithm):
                             return n + 1
                         else:
                             self.master.log_success(f"The fake bar is between" +
-                                                    f"{0} and {3-n}")
+                                                    f" {0} and {3-n}")
 
             elif self.test_weights() == "R":
                 self.master.log_success(f"The fake bar is between {4} and {7}")
@@ -63,7 +61,7 @@ class BruteForceAlgorithm(FakeFinderAlgorithm):
                             return n + 1
                         else:
                             self.master.log_success(f"The fake bar is between" +
-                                                    f"{n + 4} and {7}")
+                                                    f" {n + 4} and {7}")
 
         except Exception as e:
             self.master.log_error(f"Something went wrong in the brute force" +
