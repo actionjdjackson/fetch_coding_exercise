@@ -39,7 +39,7 @@ you clone the repo, run: `pip3 install -r requirements.txt`
 
 1. Clone this repository to your local machine
     ```bash
-      git clone https://github.com/actionjdjackson/fetch_coding_exercise
+      git clone https://github.com/actionjdjackson/fetch_coding_exercise.git
     ```
 2. Configure the `config.json` file with the settings you wish to use:
   ```json
