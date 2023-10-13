@@ -44,7 +44,7 @@ Before using this script, ensure you have the following:
   {
     "URL": "http://sdetchallenge.fetch.com/",
     "DEFAULT_BROWSER": "Ask",
-    "SMART": "Y",
+    "ALGORITHM": "S",
     "WAIT_TIME": 5,
     "PAUSE_TIME": 2,
     "LOOP": "Y",
@@ -53,7 +53,7 @@ Before using this script, ensure you have the following:
   ```
   - `URL`: "The URL of the game website"
   - `DEFAULT_BROWSER`: "Ask", "Chrome", "Firefox", "Edge", "Safari", or "Internet Explorer"
-  - `SMART`: "Y" or "N" or "R" for using the smart algorithm (Y), versus brute force (N) or random (R) algorithms
+  - `ALGORITHM`: "S" or "B" or "R" for using the smart algorithm (S), versus brute force (B) or random (R) algorithms
   - `WAIT_TIME`: # of seconds to wait after finding the fake bar, before exiting or looping
   - `PAUSE_TIME`: # of seconds to pause in between weighings, to allow the interface to "catch up"
   - `LOOP`: "Y" or "N" for looping the algorithm on a fresh load of the page
@@ -63,15 +63,15 @@ Before using this script, ensure you have the following:
 
 4. Run the script:
     ```bash
-    python3 find_fake_bar_test.py
+    python3 find_fake_test.py
     ```
     or, depending on your installation, you may be able to run it as:
     ```bash
-    python find_fake_bar_test.py
+    python find_fake_test.py
     ```
 5. If you're configured to ask for a browser, enter the browser's first letter in the prompt.
 
-6. If you want the dialog box for winning the game to go away sooner, change the WAIT_TIME variable in the configuration file. Clicking "Close" or "OK" on the dialog will cause an error in Firefox and Chrome, and possibly also Edge and IE. Safari asks you wether you want to continue the session or stop it - make sure you click continue, or a similar error will occur in Safari, too. The error causes the program to exit gracefully. So, it's best to just wait for the program to accept the "Close" or "OK" button itself and start on the next loop, or close down if you aren't looping.
+6. If you want the dialog box for winning the game to go away sooner, change the WAIT_TIME variable in the configuration file. Clicking "Close" or "OK" on the dialog will cause an error in Firefox and Chrome, and possibly also Edge and IE. Safari asks you wether you want to continue the session or stop it - make sure you click continue, or a similar error will occur in Safari, too. The error causes the program to exit gracefully. But, it's best to just wait for the program to accept the "Close" or "OK" button itself and start on the next loop, or close down if you aren't looping.
 
 7. If you're looping. If you are in loop mode, use Ctrl-C in the terminal/command prompt to exit the program, and it will exit gracefully.
 
@@ -122,4 +122,4 @@ Before using this script, ensure you have the following:
     This is all accomplished by way of Selenium WebDriver, for interacting with
     the webpage's components, Python's built-in time library, for waiting
     until the interface updates, Python's built-in logging, os, and json libraries
-    are also used for configuration and logging purposes. There doesn't seem to be much difference between random and organized searching for the fake bar, but the smart way is consistently giving correct answers in only two iterations. Every time.
+    are also used for configuration and logging purposes. There doesn't seem to be much difference between random and brute force algorithms for searching for the fake bar, but the smart way is consistently giving correct answers in only two iterations. Every time.

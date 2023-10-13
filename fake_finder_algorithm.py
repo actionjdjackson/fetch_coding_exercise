@@ -1,9 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
-import os
-import logging
-import json
 import random
 
 class FakeFinderAlgorithm():
@@ -19,7 +16,7 @@ class FakeFinderAlgorithm():
         weighing, the selection buttons, the weigh button, and the reset button.
         """
         try:
-            self.master.log_success("Setting up the algorithm.. loading the URL...")
+            self.master.log_success("Setting up the algorithm, loading the URL")
 
             self.driver.get(self.master.URL)
 
@@ -28,26 +25,24 @@ class FakeFinderAlgorithm():
             self.left_bowl = []
 
             for n in range(0, 9):
-                self.left_bowl.append(self.driver.find_element(By.ID, f"left_{n}"))
+                self.left_bowl.append(self.driver.find_element(By.ID,
+                                                        f"left_{n}"))
 
             self.right_bowl = []
 
             for n in range(0, 9):
-                self.right_bowl.append(self.driver.find_element(By.ID, f"right_{n}"))
-
-            self.master.log_success("Loaded bowls into algorithm")
+                self.right_bowl.append(self.driver.find_element(By.ID,
+                                                        f"right_{n}"))
 
             self.selection_buttons = []
-
             for n in range(0, 9):
-                self.selection_buttons.append(self.driver.find_element(By.ID, f"coin_{n}"))
-
-            self.master.log_success("Loaded bar selection buttons into algorithm")
+                self.selection_buttons.append(self.driver.find_element(By.ID,
+                                                        f"coin_{n}"))
 
             self.weigh_button = self.driver.find_element(By.ID, "weigh")
             self.reset_button = self.driver.find_elements(By.ID, "reset")[1]
 
-            self.master.log_success("Loaded weigh & reset buttons into algorithm")
+            self.master.log_success("Loaded components into algorithm")
 
         except Exception as e:
             self.master.log_error(f"Something went wrong setting up the algorithm: {e}")
@@ -76,6 +71,7 @@ class FakeFinderAlgorithm():
             if self.test_weights() == "E":
                 self.master.log_success("Fake bar is between 6 and 8")
                 self.reset_and_fill_bowls(6, 7)
+                self.weigh_in()
                 if self.test_weights() == "E":
                     self.make_selection(8)
                 elif self.test_weights() == "L":
@@ -88,6 +84,7 @@ class FakeFinderAlgorithm():
             elif self.test_weights() == "L":
                 self.master.log_success("Fake bar is between 0 and 2")
                 self.reset_and_fill_bowls(0, 1)
+                self.weigh_in()
                 if self.test_weights() == "E":
                     self.make_selection(2)
                 elif self.test_weights() == "L":
@@ -100,6 +97,7 @@ class FakeFinderAlgorithm():
             elif self.test_weights() == "R":
                 self.master.log_success("Fake bar is between 3 and 5")
                 self.reset_and_fill_bowls(3, 4)
+                self.weigh_in()
                 if self.test_weights() == "E":
                     self.make_selection(5)
                 elif self.test_weights() == "L":
@@ -115,11 +113,13 @@ class FakeFinderAlgorithm():
             return 2
 
         except ValueError as val_e:
-            self.master.log_error(f"Value Error encountered in smart algorithm: {val_e}")
+            self.master.log_error(f"Value Error encountered in smart " +
+                                  f"algorithm: {val_e}")
             self.log_error("\nShutting down gracefully. Bye.")
             exit()
         except Exception as e:
-            self.master.log_error(f"An unexpected error occurrred in smart algorithm: {e}")
+            self.master.log_error(f"An unexpected error occurrred in smart " +
+                                  f"algorithm: {e}")
             self.log_error("\nShutting down gracefully. Bye.")
             exit()
 
@@ -140,26 +140,26 @@ class FakeFinderAlgorithm():
             self.setup_algorithm()
 
             self.master.log_success("Beginning random algorithm...")
-            self.master.log_success("Shuffling the bars...")
             selections = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+
+            self.master.log_success("Shuffling the bars...")
             random.shuffle(selections)
+
             for n in range(0, len(selections) - 1, 2):
                 self.reset_button.click()
                 time.sleep(self.master.PAUSE_TIME)
                 self.left_bowl[selections[n]].send_keys(f"{selections[n]}")
                 self.right_bowl[selections[n + 1]].send_keys(f"{selections[n + 1]}")
-                self.weigh_button.click()
-                self.master.log_success("Weighing...")
-                time.sleep(self.master.PAUSE_TIME)
+                self.weigh_in()
                 if self.test_weights() == "E":
                     continue
                 if self.test_weights() == "L":
-                    make_selection(selections[n])
+                    self.make_selection(selections[n])
                     return n // 2 + 1
                 if self.test_weights() == "R":
-                    make_selection(selections[n + 1])
+                    self.make_selection(selections[n + 1])
                     return n // 2 + 1
-            make_selection(selections[8])
+            self.make_selection(selections[8])
             return 4
         except Exception as e:
             self.master.log_error(f"Something went wrong in the random algorithm: {e}")
@@ -184,76 +184,51 @@ class FakeFinderAlgorithm():
         try:
             self.master.log_success("Beginning brute force algorithm...")
             self.master.log_success("Divvying up the bars equally...")
-            self.setup_scale_brute_force(0)
 
+            self.setup_scale_brute_force(0)
             self.weigh_button.click()
             self.master.log_success("Weighing...")
             time.sleep(self.master.PAUSE_TIME)
+
             if self.test_weights() == "E":
-                self.master.log_success("The fake bar is number 8")
-                self.selection_buttons[8].click()
-                time.sleep(self.master.WAIT_TIME)
-                self.master.log_success(f"{self.driver.switch_to.alert.text}")
-                self.driver.switch_to.alert.accept()
-                self.getWeighIns()
+                self.make_selection(8)
                 return 1
 
             elif self.test_weights() == "L":
                 self.master.log_success(f"The fake bar is between {0} and {3}")
                 for n in range(1, 4):
                     self.setup_scale_brute_force(n)
-                    self.weigh_button.click()
-                    self.master.log_success("Weighing...")
-                    time.sleep(self.master.PAUSE_TIME)
+                    self.weigh_in()
                     if self.test_weights() == "E":
-                        self.master.log_success(f"The fake bar is number {4-n}")
-                        self.selection_buttons[4-n].click()
-                        time.sleep(self.master.WAIT_TIME)
-                        self.master.log_success(f"{self.driver.switch_to.alert.text}")
-                        self.driver.switch_to.alert.accept()
-                        self.getWeighIns()
+                        self.make_selection(4 - n)
                         return n + 1
                     elif self.test_weights() == "L":
                         if n == 3:
-                            self.master.log_success(f"The fake bar is number {0}")
-                            self.selection_buttons[0].click()
-                            time.sleep(self.master.WAIT_TIME)
-                            self.master.log_success(f"{self.driver.switch_to.alert.text}")
-                            self.driver.switch_to.alert.accept()
-                            self.getWeighIns()
+                            self.make_selection(0)
                             return n + 1
                         else:
-                            self.master.log_success(f"The fake bar is between {0} and {3-n}")
+                            self.master.log_success(f"The fake bar is between" +
+                                                    f"{0} and {3-n}")
 
             elif self.test_weights() == "R":
                 self.master.log_success(f"The fake bar is between {4} and {7}")
                 for n in range(1, 4):
                     self.setup_scale_brute_force(n)
-                    self.weigh_button.click()
-                    self.master.log_success("Weighing...")
-                    time.sleep(self.master.PAUSE_TIME)
+                    self.weigh_in()
                     if self.test_weights() == "E":
-                        self.master.log_success(f"The fake bar is number {n + 3}")
-                        self.selection_buttons[n + 3].click()
-                        time.sleep(self.master.WAIT_TIME)
-                        self.master.log_success(f"{self.driver.switch_to.alert.text}")
-                        self.driver.switch_to.alert.accept()
-                        self.getWeighIns()
+                        self.make_selection(n + 3)
                         return n + 1
                     elif self.test_weights() == "R":
                         if n == 3:
-                            self.master.log_success(f"The fake bar is number {7}")
-                            self.selection_buttons[7].click()
-                            time.sleep(self.master.WAIT_TIME)
-                            self.master.log_success(f"{self.driver.switch_to.alert.text}")
-                            self.driver.switch_to.alert.accept()
-                            self.getWeighIns()
+                            self.make_selection(7)
                             return n + 1
                         else:
-                            self.master.log_success(f"The fake bar is between {n + 4} and {7}")
+                            self.master.log_success(f"The fake bar is between" +
+                                                    f"{n + 4} and {7}")
 
         except Exception as e:
-            self.master.log_error(f"Something went wrong in the brute force algorithm: {e}")
+            self.master.log_error(f"Something went wrong in the brute force" +
+                                  f"algorithm: {e}")
             self.master.log_error("Exiting program gracefully, goodbye!")
             exit()
 
@@ -271,9 +246,6 @@ class FakeFinderAlgorithm():
         time.sleep(self.master.PAUSE_TIME)
         self.left_bowl[0].send_keys(f"{l}")
         self.right_bowl[0].send_keys(f"{r}")
-        self.weigh_button.click()
-        self.master.log_success("Weighing...")
-        time.sleep(self.master.PAUSE_TIME)
 
     def make_selection(self, n):
         self.master.log_success(f"The fake bar is {n}")
@@ -283,8 +255,13 @@ class FakeFinderAlgorithm():
         self.driver.switch_to.alert.accept()
         self.getWeighIns()
 
+    def weigh_in(self):
+        self.weigh_button.click()
+        self.master.log_success("Weighing...")
+        time.sleep(self.master.PAUSE_TIME)
+
     def getWeighIns(self):
-        weighins = self.driver.find_elements(By.XPATH, "//ol/li")
+        weighins = self.driver.find_elements(By.XPATH, "//ol/li") #find weigh-ins
         for n in range(0, len(weighins)):
             self.master.log_success(f"{n+1}. {weighins[n].get_attribute('innerText')}")
 

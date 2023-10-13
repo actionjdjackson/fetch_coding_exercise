@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from fake_finder_algorithm import FakeFinderAlgorithm
 from statistics import mean
+from statistics import StatisticsError
 from math import isnan
 import time
 import os
@@ -17,10 +18,10 @@ class FindTheFakeBarAutomator:
         Initializes program constants,
         URL = The URL to the weighing game website
         DEFAULT_BROWSER = The browser you wish to use, or ask for a terminal entry
-        SMART = The type of algorithm to use, Y for Smart, N for Brute Force, R
-        for Random
+        ALGORITHM = The type of algorithm to use, "S" for Smart, "B" for Brute
+        Force, "R" for Random
         WAIT_TIME = How long (in seconds) to wait between loops, after the
-        success alert dialog box opens, and before it is automatically clicked
+        success alert dialog box opens, and before it is automatically closed
         PAUSE_TIME = How long (in seconds) to wait between weigh-ins and resets,
         for the interface to "catch up."
         LOOP = Y for looping, N for a single-shot
@@ -36,7 +37,7 @@ class FindTheFakeBarAutomator:
 
         self.URL = None
         self.DEFAULT_BROWSER = None
-        self.SMART = None
+        self.ALGORITHM = None
         self.WAIT_TIME = None
         self.PAUSE_TIME = None
         self.LOOP = None
@@ -44,6 +45,8 @@ class FindTheFakeBarAutomator:
 
         self.setup_logging()
         self.load_configuration()
+
+        self.weighs_list = []
 
     def setup_logging(self):
         if not os.path.exists(self.LOG_FILE):
@@ -59,13 +62,13 @@ class FindTheFakeBarAutomator:
 
             self.URL = config.get('URL')
             self.DEFAULT_BROWSER = config.get('DEFAULT_BROWSER')
-            self.SMART = config.get('SMART')
+            self.ALGORITHM = config.get('ALGORITHM')
             self.WAIT_TIME = config.get('WAIT_TIME')
             self.PAUSE_TIME = config.get('PAUSE_TIME')
             self.LOOP = config.get('LOOP')
             self.N_LOOPS = config.get('N_LOOPS')
 
-            if None in (self.N_LOOPS, self.DEFAULT_BROWSER, self.SMART,
+            if None in (self.N_LOOPS, self.DEFAULT_BROWSER, self.ALGORITHM,
                         self.WAIT_TIME, self.PAUSE_TIME, self.URL, self.LOOP):
                 raise ValueError("Some required value(s) is(are) missing in config file")
 
@@ -78,14 +81,14 @@ class FindTheFakeBarAutomator:
             if self.URL.isspace():
                 raise ValueError("Invalid URL entered in configuration file.")
 
-            if self.SMART.upper() == "Y":
+            if self.ALGORITHM.upper() == "S":
                 self.log_success("Currently running with smart algorithm...")
-            elif self.SMART.upper() == "N":
+            elif self.ALGORITHM.upper() == "B":
                 self.log_success("Currently running brute force algorithm...")
-            elif self.SMART.upper() == "R":
+            elif self.ALGORITHM.upper() == "R":
                 self.log_success("Currently running random algorithm...")
             else:
-                raise ValueError("Invalid SMART value entered in configuration file")
+                raise ValueError("Invalid ALGORITHM value entered in configuration file")
 
             if self.LOOP.upper() == "Y":
                 self.log_success("Running on a loop...")
@@ -99,7 +102,7 @@ class FindTheFakeBarAutomator:
 
         except ValueError as e:
             self.log_error(f"An error occurred while reading the config file: {e}")
-            self.N_LOOPS = self.DEFAULT_BROWSER = self.SMART = self.WAIT_TIME = self.PAUSE_TIME = self.URL = self.LOOP = None
+            self.N_LOOPS = self.DEFAULT_BROWSER = self.ALGORITHM = self.WAIT_TIME = self.PAUSE_TIME = self.URL = self.LOOP = None
 
     def log_error(self, message):
         print(f"Error(s) occurred, please check '{self.LOG_FILE}' for more details")
@@ -110,10 +113,9 @@ class FindTheFakeBarAutomator:
         logging.info(message)
 
     def ask_for_browser(self):
-        self.log_success("Asking for browser in the terminal...")
         while True:
-            input_string = input(f"What browser would you like to use?"
-                + " [S]afari, [F]irefox, [C]hrome, [E]dge, [I]nternet Exploder: ")
+            input_string = input(f"What browser would you like to use?\n"
+                + "[S]afari, [F]irefox, [C]hrome, [E]dge, [I]nternet Exploder: ")
             if input_string.upper() == "S":
                 self.log_success("Okay, Safari it is. "
                     + "Please make sure you go to the Develop menu, and "
@@ -145,7 +147,7 @@ class FindTheFakeBarAutomator:
 
     def run(self):
         try:
-            if not self.DEFAULT_BROWSER or not self.SMART or not self.WAIT_TIME or not self.PAUSE_TIME or not self.URL or not self.LOOP:
+            if not self.DEFAULT_BROWSER or not self.ALGORITHM or not self.WAIT_TIME or not self.PAUSE_TIME or not self.URL or not self.LOOP:
                 raise ValueError("Configuration is incomplete")
 
             self.algorithm = FakeFinderAlgorithm(self)
@@ -179,49 +181,66 @@ class FindTheFakeBarAutomator:
 
             if self.LOOP.upper() == "Y":
 
-                self.weighs_list = []
                 while len(self.weighs_list) < self.N_LOOPS:
 
-                    self.log_success(f"(Loop {len(self.weighs_list) + 1} of {self.N_LOOPS})")
+                    self.log_success(f"(Loop {len(self.weighs_list) + 1} "
+                                   + f"of {self.N_LOOPS})")
 
-                    if self.SMART.upper() == "Y":
+                    if self.ALGORITHM.upper() == "S":
                         weighs = self.algorithm.find_fake_smart()
+                        self.log_success(f"Found fake bar in {weighs} weighs "
+                                       + f"using the smart algorithm.")
 
-                    elif self.SMART.upper() == "N":
+                    elif self.ALGORITHM.upper() == "B":
                         weighs = self.algorithm.find_fake_brute_force()
+                        self.log_success(f"Found fake bar in {weighs} weighs "
+                                       + f"using the brute force algorithm.")
 
-                    elif self.SMART.upper() == "R":
+                    elif self.ALGORITHM.upper() == "R":
                         weighs = self.algorithm.find_fake_random()
+                        self.log_success(f"Found fake bar in {weighs} weighs "
+                                       + f"using the random algorithm.")
 
-                    self.log_success(f"Found fake bar in {weighs} weighs.")
                     self.weighs_list.append(weighs)
 
                 self.log_success(f"Average number of weighs in " +
-                    f"{len(self.weighs_list)} trials: {mean(self.weighs_list)}")
+                    f"{len(self.weighs_list)} trials: {mean(self.weighs_list)}"
+                  + f" using the {self.ALGORITHM.upper()} algorithm.")
 
             elif self.LOOP.upper() == "N":  # Running only once
 
-                if self.SMART.upper() == "Y":
+                if self.ALGORITHM.upper() == "S":
                     weighs = self.algorithm.find_fake_smart()
-                    self.log_success(f"Found fake bar in {weighs} weighs.")
+                    self.log_success(f"Found fake bar in {weighs} weighs "
+                                    + f"using the smart algorithm.")
 
-                elif self.SMART.upper() == "N":
+                elif self.ALGORITHM.upper() == "B":
                     weighs = self.algorithm.find_fake_brute_force()
-                    self.log_success(f"Found fake bar in {weighs} weighs.")
+                    self.log_success(f"Found fake bar in {weighs} weighs "
+                                   + f"using the brute force algorithm.")
 
-                elif self.SMART.upper() == "R":
+                elif self.ALGORITHM.upper() == "R":
                     weighs = self.algorithm.find_fake_random()
-                    self.log_success(f"Found fake bar in {weighs} weighs.")
+                    self.log_success(f"Found fake bar in {weighs} weighs "
+                                    + f"using the random algorithm.")
 
         except ValueError as e_value:
             self.log_error(f"Value Error: {e_value}")
         except Exception as e:
             self.log_error(f"An unexpected error occurred: {e}\n")
         except KeyboardInterrupt as kb:
-            self.log_success(f"Average number of weighs in {len(self.weighs_list)}"
-                + f" trials: {mean(self.weighs_list)}")
-            self.log_success(f"\nExiting program gracefully, goodbye!")
-            exit()
+            try:
+                self.log_success(f"\nAverage number of weighs in "
+                               + f"{len(self.weighs_list)} trials: "
+                               + f"{mean(self.weighs_list)} using "
+                               + f"{self.ALGORITHM.upper()} algorithm.")
+                self.log_success(f"Exiting program gracefully, goodbye!")
+                exit()
+            except StatisticsError as stat_e:
+                self.log_success(f"\nYou didn't run through at least one loop "
+                               + f"succesfully. Oh well. No average.")
+                self.log_success(f"Exiting program gracefully, goodbye!")
+                exit()
 
 if __name__ == "__main__":
     finder = FindTheFakeBarAutomator()
