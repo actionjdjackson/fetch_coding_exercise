@@ -337,3 +337,77 @@ Average number of weighs in 4 trials: 3 using R algorithm.
 2023-10-13 07:58:01,496 - INFO: 3. [0] = [3]
 2023-10-13 07:58:01,502 - INFO: 4. [6] = [8]
 2023-10-13 07:58:01,502 - INFO: Found fake bar in 4 weighs using the random algorithm.
+2023-10-13 08:05:48,046 - INFO: Currently running with smart algorithm...
+2023-10-13 08:05:48,046 - INFO: Running on a loop...
+2023-10-13 08:05:50,149 - INFO: Okay, Firefox it is. 
+2023-10-13 08:05:53,380 - INFO: (Loop 1 of 5)
+2023-10-13 08:05:53,380 - INFO: Setting up the algorithm, loading the URL
+2023-10-13 08:05:54,374 - INFO: URL Loaded successfully
+2023-10-13 08:05:54,428 - INFO: Loaded components into algorithm
+2023-10-13 08:05:54,428 - INFO: Beginning the smart algorithm...
+2023-10-13 08:05:54,428 - INFO: Splitting into three groups...
+2023-10-13 08:05:54,712 - INFO: Weighing...
+2023-10-13 08:05:56,734 - INFO: Fake bar is between 3 and 5
+2023-10-13 08:05:59,165 - INFO: Weighing...
+2023-10-13 08:06:01,177 - INFO: The fake bar is 4
+2023-10-13 08:06:01,250 - INFO: Yay! You find it!
+2023-10-13 08:06:03,282 - INFO: 1. [0,1,2] > [3,4,5]
+2023-10-13 08:06:03,291 - INFO: 2. [3] > [4]
+2023-10-13 08:06:03,291 - INFO: Found fake bar in 2 weighs using the smart algorithm.
+2023-10-13 08:06:03,291 - INFO: (Loop 2 of 5)
+2023-10-13 08:06:03,291 - INFO: Setting up the algorithm, loading the URL
+2023-10-13 08:06:03,842 - INFO: URL Loaded successfully
+2023-10-13 08:06:03,884 - INFO: Loaded components into algorithm
+2023-10-13 08:06:03,884 - INFO: Beginning the smart algorithm...
+2023-10-13 08:06:03,884 - INFO: Splitting into three groups...
+2023-10-13 08:06:04,132 - INFO: Weighing...
+2023-10-13 08:06:06,141 - INFO: Fake bar is between 3 and 5
+2023-10-13 08:06:08,586 - INFO: Weighing...
+2023-10-13 08:06:10,597 - INFO: The fake bar is 5
+2023-10-13 08:06:10,637 - INFO: Yay! You find it!
+2023-10-13 08:06:12,663 - INFO: 1. [0,1,2] > [3,4,5]
+2023-10-13 08:06:12,670 - INFO: 2. [3] = [4]
+2023-10-13 08:06:12,670 - INFO: Found fake bar in 2 weighs using the smart algorithm.
+2023-10-13 08:06:12,670 - INFO: (Loop 3 of 5)
+2023-10-13 08:06:12,670 - INFO: Setting up the algorithm, loading the URL
+2023-10-13 08:06:13,365 - INFO: URL Loaded successfully
+2023-10-13 08:06:13,407 - INFO: Loaded components into algorithm
+2023-10-13 08:06:13,407 - INFO: Beginning the smart algorithm...
+2023-10-13 08:06:13,407 - INFO: Splitting into three groups...
+2023-10-13 08:06:13,658 - INFO: Weighing...
+2023-10-13 08:06:15,663 - INFO: Fake bar is between 3 and 5
+2023-10-13 08:06:18,094 - INFO: Weighing...
+2023-10-13 08:06:20,105 - INFO: The fake bar is 3
+2023-10-13 08:06:20,145 - INFO: Yay! You find it!
+2023-10-13 08:06:22,165 - INFO: 1. [0,1,2] > [3,4,5]
+2023-10-13 08:06:22,171 - INFO: 2. [3] < [4]
+2023-10-13 08:06:22,171 - INFO: Found fake bar in 2 weighs using the smart algorithm.
+2023-10-13 08:06:22,171 - INFO: (Loop 4 of 5)
+2023-10-13 08:06:22,171 - INFO: Setting up the algorithm, loading the URL
+2023-10-13 08:06:22,866 - INFO: URL Loaded successfully
+2023-10-13 08:06:22,907 - INFO: Loaded components into algorithm
+2023-10-13 08:06:22,907 - INFO: Beginning the smart algorithm...
+2023-10-13 08:06:22,907 - INFO: Splitting into three groups...
+2023-10-13 08:06:23,154 - INFO: Weighing...
+2023-10-13 08:06:25,166 - INFO: Fake bar is between 0 and 2
+2023-10-13 08:06:27,611 - INFO: Weighing...
+2023-10-13 08:06:29,620 - INFO: The fake bar is 2
+2023-10-13 08:06:29,663 - INFO: Yay! You find it!
+2023-10-13 08:06:31,687 - INFO: 1. [0,1,2] < [3,4,5]
+2023-10-13 08:06:31,694 - INFO: 2. [0] = [1]
+2023-10-13 08:06:31,694 - INFO: Found fake bar in 2 weighs using the smart algorithm.
+2023-10-13 08:06:31,694 - INFO: (Loop 5 of 5)
+2023-10-13 08:06:31,694 - INFO: Setting up the algorithm, loading the URL
+2023-10-13 08:06:32,431 - INFO: URL Loaded successfully
+2023-10-13 08:06:32,472 - INFO: Loaded components into algorithm
+2023-10-13 08:06:32,472 - INFO: Beginning the smart algorithm...
+2023-10-13 08:06:32,472 - INFO: Splitting into three groups...
+2023-10-13 08:06:32,717 - INFO: Weighing...
+2023-10-13 08:06:34,728 - INFO: Fake bar is between 3 and 5
+2023-10-13 08:06:37,161 - INFO: Weighing...
+2023-10-13 08:06:39,171 - INFO: The fake bar is 4
+2023-10-13 08:06:39,212 - INFO: Yay! You find it!
+2023-10-13 08:06:41,230 - INFO: 1. [0,1,2] > [3,4,5]
+2023-10-13 08:06:41,236 - INFO: 2. [3] > [4]
+2023-10-13 08:06:41,236 - INFO: Found fake bar in 2 weighs using the smart algorithm.
+2023-10-13 08:06:41,237 - INFO: Average number of weighs in 5 trials: 2 using the S algorithm.

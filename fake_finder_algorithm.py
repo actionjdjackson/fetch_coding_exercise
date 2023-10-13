@@ -113,11 +113,14 @@ class FakeFinderAlgorithm():
         "E" for equal, "L" for the left side being less (the side the fake is on),
         and "R" for the right side being less (the side the fake is on).
         """
-        if self.driver.find_element(By.ID, "reset").text == "=":
+        comparator = self.driver.find_element(By.ID, "reset").text
+        if comparator == "=":
             return "E"
-        elif self.driver.find_element(By.ID, "reset").text == "<":
+        elif comparator == "<":
             return "L"
-        elif self.driver.find_element(By.ID, "reset").text == ">":
+        elif comparator == ">":
             return "R"
-        elif self.driver.find_element(By.ID, "reset").text == "?":
+        elif comparator == "?":
+            return None
+        else:
             return None
