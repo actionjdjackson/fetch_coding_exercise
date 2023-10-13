@@ -73,9 +73,11 @@ you clone the repo, run: `pip3 install -r requirements.txt`
     ```
 5. If you're configured to ask for a browser, enter the browser's first letter in the prompt.
 
-6. If you want the dialog box for winning the game to go away sooner, change the WAIT_TIME variable in the configuration file. Clicking "Close" or "OK" on the dialog will cause an error in Firefox and Chrome, and possibly also Edge and IE. Safari asks you wether you want to continue the session or stop it - make sure you click continue, or a similar error will occur in Safari, too. The error causes the program to exit gracefully. But, it's best to just wait for the program to accept the "Close" or "OK" button itself and start on the next loop, or close down if you aren't looping.
+6. The program will automatically enter values, click buttons, etc. to run the chosen algorithm and find the fake bar. When the alert dialog box closes after a few seconds, you'll see in the terminal/command prompt the fake bar number, the text from the alert dialog box, and the list of weigh-ins, as well as the number of weigh-ins that were used to find the result.
 
-7. If you're looping. If you are in loop mode, use Ctrl-C in the terminal/command prompt to exit the program, and it will exit gracefully.
+6. If you want the alert dialog box for winning the game to go away sooner, change the WAIT_TIME variable in the configuration file. Clicking "Close" or "OK" on the alert dialog box is ok, too.
+
+7. If you are in loop mode, and all the loops are finished, you'll also receive the average number of weigh-ins for the algorithm you chose. If you want to quit it sooner, use Ctrl-C in the terminal/command prompt to exit the program, and it will exit gracefully. If possible, you'll get the current running average of weigh-ins.
 
 ---
 

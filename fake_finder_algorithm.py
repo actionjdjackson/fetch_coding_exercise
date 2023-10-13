@@ -115,12 +115,12 @@ class FakeFinderAlgorithm():
         except ValueError as val_e:
             self.master.log_error(f"Value Error encountered in smart " +
                                   f"algorithm: {val_e}")
-            self.log_error("\nShutting down gracefully. Bye.")
+            self.master.log_error("\nShutting down gracefully. Bye.")
             exit()
         except Exception as e:
             self.master.log_error(f"An unexpected error occurrred in smart " +
                                   f"algorithm: {e}")
-            self.log_error("\nShutting down gracefully. Bye.")
+            self.master.log_error("\nShutting down gracefully. Bye.")
             exit()
 
     def find_fake_random(self):
@@ -250,9 +250,12 @@ class FakeFinderAlgorithm():
     def make_selection(self, n):
         self.master.log_success(f"The fake bar is {n}")
         self.selection_buttons[n].click()
-        time.sleep(self.master.WAIT_TIME)
         self.master.log_success(f"{self.driver.switch_to.alert.text}")
-        self.driver.switch_to.alert.accept()
+        time.sleep(self.master.WAIT_TIME)
+        try:
+            self.driver.switch_to.alert.accept()
+        except Exception as e:
+            self.master.log_success(f"You closed the alert dialog box.")
         self.getWeighIns()
 
     def weigh_in(self):

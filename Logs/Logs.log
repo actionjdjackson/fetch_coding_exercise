@@ -1,1 +1,80 @@
 
+2023-10-12 20:00:20,016 - INFO: Currently running with smart algorithm...
+2023-10-12 20:00:20,016 - INFO: Running on a loop...
+2023-10-12 20:00:22,244 - INFO: Okay, Firefox it is. 
+2023-10-12 20:00:25,436 - INFO: (Loop 1 of 5)
+2023-10-12 20:00:25,437 - INFO: Setting up the algorithm, loading the URL
+2023-10-12 20:00:26,442 - INFO: URL Loaded successfully
+2023-10-12 20:00:26,494 - INFO: Loaded components into algorithm
+2023-10-12 20:00:26,494 - INFO: Beginning the smart algorithm...
+2023-10-12 20:00:26,495 - INFO: Splitting into three groups...
+2023-10-12 20:00:26,783 - INFO: Weighing...
+2023-10-12 20:00:28,800 - INFO: Fake bar is between 6 and 8
+2023-10-12 20:00:31,237 - INFO: Weighing...
+2023-10-12 20:00:33,246 - INFO: The fake bar is 8
+2023-10-12 20:00:33,310 - INFO: Yay! You find it!
+2023-10-12 20:00:36,318 - ERROR: You closed the alert dialog box, naughty.
+2023-10-12 20:00:36,335 - INFO: 1. [0,1,2] = [3,4,5]
+2023-10-12 20:00:36,343 - INFO: 2. [6] = [7]
+2023-10-12 20:00:36,343 - INFO: Found fake bar in 2 weighs using the smart algorithm.
+2023-10-12 20:00:36,343 - INFO: (Loop 2 of 5)
+2023-10-12 20:00:36,343 - INFO: Setting up the algorithm, loading the URL
+2023-10-12 20:00:37,142 - INFO: URL Loaded successfully
+2023-10-12 20:00:37,183 - INFO: Loaded components into algorithm
+2023-10-12 20:00:37,183 - INFO: Beginning the smart algorithm...
+2023-10-12 20:00:37,183 - INFO: Splitting into three groups...
+2023-10-12 20:00:37,431 - INFO: Weighing...
+2023-10-12 20:00:39,469 - INFO: Fake bar is between 3 and 5
+2023-10-12 20:00:41,905 - INFO: Weighing...
+2023-10-12 20:00:43,932 - INFO: The fake bar is 3
+2023-10-12 20:00:43,968 - INFO: Yay! You find it!
+2023-10-12 20:00:46,975 - ERROR: You closed the alert dialog box, naughty.
+2023-10-12 20:00:46,986 - INFO: 1. [0,1,2] > [3,4,5]
+2023-10-12 20:00:46,994 - INFO: 2. [3] < [4]
+2023-10-12 20:00:46,994 - INFO: Found fake bar in 2 weighs using the smart algorithm.
+2023-10-12 20:00:46,994 - INFO: (Loop 3 of 5)
+2023-10-12 20:00:46,994 - INFO: Setting up the algorithm, loading the URL
+2023-10-12 20:00:47,779 - INFO: URL Loaded successfully
+2023-10-12 20:00:47,819 - INFO: Loaded components into algorithm
+2023-10-12 20:00:47,819 - INFO: Beginning the smart algorithm...
+2023-10-12 20:00:47,819 - INFO: Splitting into three groups...
+2023-10-12 20:00:48,067 - INFO: Weighing...
+2023-10-12 20:00:50,075 - INFO: Fake bar is between 6 and 8
+2023-10-12 20:00:52,521 - INFO: Weighing...
+2023-10-12 20:00:54,528 - INFO: The fake bar is 8
+2023-10-12 20:00:54,565 - INFO: Yay! You find it!
+2023-10-12 20:00:57,573 - ERROR: You closed the alert dialog box, naughty.
+2023-10-12 20:00:57,587 - INFO: 1. [0,1,2] = [3,4,5]
+2023-10-12 20:00:57,594 - INFO: 2. [6] = [7]
+2023-10-12 20:00:57,594 - INFO: Found fake bar in 2 weighs using the smart algorithm.
+2023-10-12 20:00:57,594 - INFO: (Loop 4 of 5)
+2023-10-12 20:00:57,594 - INFO: Setting up the algorithm, loading the URL
+2023-10-12 20:00:58,308 - INFO: URL Loaded successfully
+2023-10-12 20:00:58,349 - INFO: Loaded components into algorithm
+2023-10-12 20:00:58,349 - INFO: Beginning the smart algorithm...
+2023-10-12 20:00:58,349 - INFO: Splitting into three groups...
+2023-10-12 20:00:58,599 - INFO: Weighing...
+2023-10-12 20:01:00,623 - INFO: Fake bar is between 0 and 2
+2023-10-12 20:01:03,068 - INFO: Weighing...
+2023-10-12 20:01:05,110 - INFO: The fake bar is 1
+2023-10-12 20:01:05,142 - INFO: Yay! You find it!
+2023-10-12 20:01:08,150 - ERROR: You closed the alert dialog box, naughty.
+2023-10-12 20:01:08,162 - INFO: 1. [0,1,2] < [3,4,5]
+2023-10-12 20:01:08,169 - INFO: 2. [0] > [1]
+2023-10-12 20:01:08,169 - INFO: Found fake bar in 2 weighs using the smart algorithm.
+2023-10-12 20:01:08,169 - INFO: (Loop 5 of 5)
+2023-10-12 20:01:08,169 - INFO: Setting up the algorithm, loading the URL
+2023-10-12 20:01:08,892 - INFO: URL Loaded successfully
+2023-10-12 20:01:08,931 - INFO: Loaded components into algorithm
+2023-10-12 20:01:08,931 - INFO: Beginning the smart algorithm...
+2023-10-12 20:01:08,931 - INFO: Splitting into three groups...
+2023-10-12 20:01:09,176 - INFO: Weighing...
+2023-10-12 20:01:11,190 - INFO: Fake bar is between 6 and 8
+2023-10-12 20:01:13,630 - INFO: Weighing...
+2023-10-12 20:01:15,671 - INFO: The fake bar is 7
+2023-10-12 20:01:15,702 - INFO: Yay! You find it!
+2023-10-12 20:01:18,707 - ERROR: You closed the alert dialog box, naughty.
+2023-10-12 20:01:18,718 - INFO: 1. [0,1,2] = [3,4,5]
+2023-10-12 20:01:18,725 - INFO: 2. [6] > [7]
+2023-10-12 20:01:18,725 - INFO: Found fake bar in 2 weighs using the smart algorithm.
+2023-10-12 20:01:18,726 - INFO: Average number of weighs in 5 trials: 2 using the S algorithm.
