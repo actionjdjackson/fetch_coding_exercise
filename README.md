@@ -27,9 +27,11 @@ Before using this script, ensure you have the following:
     and then **Close**.
     4. Click **Close** to end the installation.
 
-- Required Python packages installed. You can install them using `pip3 install -r requirements.txt` or, in some cases you can use `pip install -r requirements.txt`
+- Required Python packages installed. The only one not included in python is
+selenium webdriver. You can install it using `pip3 install selenium` or, after
+you clone the repo, run: `pip3 install -r requirements.txt`
 
-- Configuration file (`config.json`) with optional settings
+- Configuration file (`config.json`) with valid optional settings. This will be visible in the repo's main directory after you clone the repository.
 
 ---
 
@@ -122,4 +124,6 @@ Before using this script, ensure you have the following:
     This is all accomplished by way of Selenium WebDriver, for interacting with
     the webpage's components, Python's built-in time library, for waiting
     until the interface updates, Python's built-in logging, os, and json libraries
-    are also used for configuration and logging purposes. There doesn't seem to be much difference between random and brute force algorithms for searching for the fake bar, but the smart way is consistently giving correct answers in only two iterations. Every time.
+    are also used for configuration and logging purposes. There doesn't seem to be much
+    difference between random and brute force algorithms for searching for the fake bar, but
+    the smart way is consistently giving correct answers in only two iterations. Every time.
