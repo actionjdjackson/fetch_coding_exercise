@@ -122,9 +122,9 @@ you clone the repo, run: `pip3 install -r requirements.txt`
 
 ---
 
-    This is all accomplished by way of Selenium WebDriver, for interacting with
-    the webpage's components, Python's built-in time library, for waiting
-    until the interface updates, Python's built-in logging, os, and json libraries
-    are also used for configuration and logging purposes. There doesn't seem to be much
-    difference between random and brute force algorithms for searching for the fake bar, but
-    the smart way is consistently giving correct answers in only two iterations. Every time.
+This is all accomplished by way of Selenium WebDriver, for interacting with
+the webpage's components, Python's built-in time library, for waiting
+until the interface updates, Python's built-in logging, os, and json libraries
+are also used for configuration and logging purposes. There doesn't seem to be much
+difference between random and brute force algorithms for searching for the fake bar, but
+the smart way is consistently giving correct answers in only two iterations. Every time.
