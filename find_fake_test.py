@@ -77,10 +77,10 @@ class FindTheFakeBarAutomator:
                 raise ValueError("Some required value(s) is(are) missing in config file")
 
             if self.WAIT_TIME <= 0 or isnan(self.WAIT_TIME):
-                raise ValueError("Invalid wait time entered in configuration file.")
+                raise ValueError("Invalid WAIT_TIME entered in configuration file.")
 
             if self.PAUSE_TIME <= 0 or isnan(self.PAUSE_TIME):
-                raise ValueError("Invalid pause time entered in configuration file.")
+                raise ValueError("Invalid PAUSE_TIME entered in configuration file.")
 
             if self.URL.isspace():
                 raise ValueError("Invalid URL entered in configuration file.")
@@ -99,15 +99,22 @@ class FindTheFakeBarAutomator:
             elif self.LOOP.upper() == "N":
                 self.log_success("Running only once...")
             else:
-                raise ValueError("Invalid value for loop option in configuration file")
+                raise ValueError("Invalid value for LOOP option in configuration file")
 
             if self.N_LOOPS <= 0 or not isinstance(self.N_LOOPS, int):
-                raise ValueError("Invalid number of loops (must be an integer >= 1)")
+                raise ValueError("Invalid N_LOOPS value in configuration file "
+                               + "(must be an integer >= 1)")
 
-        except ValueError as e:
-            self.log_error(f"An error occurred while reading the config file: {e}")
-            self.N_LOOPS = self.DEFAULT_BROWSER = self.ALGORITHM = self.WAIT_TIME = self.PAUSE_TIME = self.URL = self.LOOP = None
-
+        except ValueError as val_e:
+            self.log_error(f"A Value Error occurred while reading the config "
+                         + f"file: {val_e}")
+            self.log_error(f"Exiting program gracefully, goodbye!")
+            exit()
+        except Exception as e:
+            self.log_error(f"An unexpected error occurred while reading the "
+                         + f"config file: {e}")
+            self.log_error(f"Exiting program gracefully, goodbye!")
+            exit()
 
     def log_error(self, message):
         print(f"Error(s) occurred, please check '{self.LOG_FILE}' for more details")
@@ -242,8 +249,12 @@ class FindTheFakeBarAutomator:
 
         except ValueError as e_value:
             self.log_error(f"Value Error: {e_value}")
+            self.log_error(f"Exiting program gracefully, goodbye!")
+            exit()
         except Exception as e:
             self.log_error(f"An unexpected error occurred: {e}\n")
+            self.log_error(f"Exiting program gracefully, goodbye!")
+            exit()
         except KeyboardInterrupt as kb:
             try:
                 self.log_success(f"\nAverage number of weighs in "
