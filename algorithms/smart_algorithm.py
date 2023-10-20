@@ -25,56 +25,31 @@ class SmartAlgorithm(FakeFinderAlgorithm):
 
             self.master.log_success("Beginning the smart algorithm...")
             self.master.log_success("Splitting into three groups...")
-            self.initial_fill_bowls()
+            self.bars = list(range(len(self.selection_buttons)))
+            left_bars = self.bars[:3]
+            right_bars = self.bars[3:6]
+            off_bars = self.bars[6:9]
+            self.fill_bowls(left_bars, right_bars)
             self.weigh_in()
             initial_test = self.test_weights()
 
             if initial_test == "E":  # Are the two sides equal?
-                self.master.log_success("Fake bar is between 6 and 8")
-                self.reset_and_fill_bowls(6, 7)  # 8 is off the scale
-                self.weigh_in()
-                second_test = self.test_weights()
-                if second_test == "E":
-                    self.make_selection(8)
-                elif second_test == "L":
-                    self.make_selection(6)
-                elif second_test == "R":
-                    self.make_selection(7)
-                else:
-                    raise ValueError("Invalid test weight value")
+
+                self.second_test(off_bars)
 
             elif initial_test == "L":  # is left lighter?
-                self.master.log_success("Fake bar is between 0 and 2")
-                self.reset_and_fill_bowls(0, 1)  # 2 is off the scale
-                self.weigh_in()
-                second_test = self.test_weights()
-                if second_test == "E":
-                    self.make_selection(2)
-                elif second_test == "L":
-                    self.make_selection(0)
-                elif second_test == "R":
-                    self.make_selection(1)
-                else:
-                    raise ValueError("Invalid test weight value")
+
+                self.second_test(left_bars)
 
             elif initial_test == "R":  # is right lighter?
-                self.master.log_success("Fake bar is between 3 and 5")
-                self.reset_and_fill_bowls(3, 4)  # 5 is off the scale
-                self.weigh_in()
-                second_test = self.test_weights()
-                if second_test == "E":
-                    self.make_selection(5)
-                elif second_test == "L":
-                    self.make_selection(3)
-                elif second_test == "R":
-                    self.make_selection(4)
-                else:
-                    raise ValueError("Invalid test weight value")
+
+                self.second_test(right_bars)
 
             else:
                 raise ValueError("Invalid test weight value")
 
             return 2
+
         except ValueError as val_e:
             self.master.log_error(f"Value Error encountered in smart " +
                                   f"algorithm: {val_e}")
@@ -87,15 +62,45 @@ class SmartAlgorithm(FakeFinderAlgorithm):
             exit()
 
 
-    def initial_fill_bowls(self):
-        for l in range(0, 3):
+    def second_test(self, bars_to_test):
+        try:
+            self.bars = bars_to_test
+            second_left_bars = self.bars[0:1]
+            second_right_bars = self.bars[1:2]
+            second_off_bars = self.bars[2:3]
+
+            self.master.log_success(f"Fake bar is between {second_left_bars} and {second_off_bars}")
+            self.reset_and_fill_bowls(second_left_bars, second_right_bars)  # 8 is off the scale
+            self.weigh_in()
+            second_test = self.test_weights()
+            if second_test == "E":
+                self.make_selection(second_off_bars[0])
+            elif second_test == "L":
+                self.make_selection(second_left_bars[0])
+            elif second_test == "R":
+                self.make_selection(second_right_bars[0])
+            else:
+                raise ValueError("Invalid test weight value")
+
+        except ValueError as val_e:
+            self.master.log_error(f"Value Error encountered in smart " +
+                                  f"algorithm: {val_e}")
+            self.master.log_error("\nShutting down gracefully. Bye.")
+            exit()
+        except Exception as e:
+            self.master.log_error(f"An unexpected error occurrred in smart " +
+                                  f"algorithm: {e}")
+            self.master.log_error("\nShutting down gracefully. Bye.")
+            exit()
+
+
+    def fill_bowls(self, left, right):
+        for l in left:
             self.left_bowl[l].send_keys(f"{l}")
-        for r in range(3, 6):
+        for r in right:
             self.right_bowl[r].send_keys(f"{r}")
 
-
-    def reset_and_fill_bowls(self, l, r):
+    def reset_and_fill_bowls(self, left, right):
         self.reset_button.click()
         time.sleep(self.master.PAUSE_TIME)
-        self.left_bowl[0].send_keys(f"{l}")
-        self.right_bowl[0].send_keys(f"{r}")
+        self.fill_bowls(left, right)

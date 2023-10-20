@@ -23,22 +23,11 @@ class FakeFinderAlgorithm():
 
             self.master.log_success("URL Loaded successfully")
 
-            self.left_bowl = []
+            self.left_bowl = self.driver.find_elements(By.XPATH, "//input[contains(@id, 'left_')]")
 
-            for n in range(0, 9):
-                self.left_bowl.append(self.driver.find_element(By.ID,
-                                                        f"left_{n}"))
+            self.right_bowl = self.driver.find_elements(By.XPATH, "//input[contains(@id, 'right_')]")
 
-            self.right_bowl = []
-
-            for n in range(0, 9):
-                self.right_bowl.append(self.driver.find_element(By.ID,
-                                                        f"right_{n}"))
-
-            self.selection_buttons = []
-            for n in range(0, 9):
-                self.selection_buttons.append(self.driver.find_element(By.ID,
-                                                        f"coin_{n}"))
+            self.selection_buttons = self.driver.find_elements(By.XPATH, "//button[contains(@id, 'coin_')]")
 
             self.weigh_button = self.driver.find_element(By.ID, "weigh")
             # Grabs the second element named "reset" - the reset button, not the
